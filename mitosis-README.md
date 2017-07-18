@@ -28,7 +28,7 @@ TODO:
 * The same PCBs are used as the "plate" for the keyboard
 * low latency
 * the receiver, and therefore keyboard is QMK software compatible
-* encrypted communication from keyboard to receiver TODO: True? Not done yey? Check source.
+* encrypted communication from keyboard to receiver TODO: True? Not done yet? Check source.
 * The Mitosis firmware is included into the default QMK firmware set.
   * intelligent layers 
   * macros
@@ -174,7 +174,7 @@ are hard coded.
 
 ### The Design: 
 
-TODO: Are these up to date? especially github moved to QMK?
+TODO: Are these up to date? especially hav reverse\_bias's github moved into QMK?
   * Main [starter link](https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/) 
   * Design materials
     * [PCB manufacturing files](https://github.com/reversebias/mitosis-hardware/tree/master/gerbers)
@@ -185,7 +185,7 @@ TODO: Are these up to date? especially github moved to QMK?
     * [Mitosis QMK source](https://github.com/qmk/qmk_firmware/tree/master/keyboards/mitosis), now merged QMK
     * [Parts list with suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom)
 
-Schmatics can be read,can be imported, displayed and edited with TODO: what?
+Schmatics can be read, can be imported, displayed and edited with KiCAD. TODO: How to import and save?
 
 
 -----------------------------------------------------------------------------------------
@@ -193,18 +193,22 @@ Schmatics can be read,can be imported, displayed and edited with TODO: what?
 
 * Keyboard halves
 	* 4 Mitosis Keyboard PCBs (2 for plates, 2 for PCB)
-	* 2 nRF51822 wireless module (Contsins a Nordic Semiconductor 51822-QFAC1-1513AN SOC chip)
-[Waveshare](http://www.waveshare.com/core51822-b.htm)
+	* 2 nRF51822 wireless module (Contains a Nordic Semiconductor
+	51822-QFAC1-1513AN SOC chip). It appears that these are single-sourced
+	through [Waveshare](http://www.waveshare.com/core51822-b.htm)
 	* 2 reverse polarity protection MOS FET (SI2302)
 	* 2 CR2032 batteries
-	* 8 Right angle 0.1" headers
-	* 4 Straight 0.1" headers -- 2 used on either side of each battery
-	* 1 (optional, very low priority) single, LED SMD. Looks like XXX should work fine. TODO: Verify.
-	* 1 (optional, very low priority) single, resistor SMD. Looks like XXX should work fine. TODO: Verify.
+	* 2 x 4-pin Right angle 0.1" headers
+	* 4 x 1-pin Straight 0.1" headers -- Used on either side of each battery
+	* an (optional, very low priority) LED can be added to existing pads on the
+	keyboard halves. It could be used to aid debugging new wireless code. The
+	orientation, values, and placement of these parts are not known. TODO: Determine.
+	  * 1 single, LED SMD.
+	  * 1 single, resistor SMD.
 
 * Receiver module
 	* 1 Pro Micro controller. Leonardo Pro Micro ATmega32U4 5V/16MHz. Replaces ATmega328 Arduino Pro Mini
-	* 1 nRF51822 wireless module [Core51822 (B)]
+	* 1 nRF51822 wireless module (see keyboard halves list for full details)
 	* 1 Receiver Interface PCB
 	* 12 Straight 0.1" headers (2 x 6 pins) to connect receiver PCB to Pro Micro
 	* 1 1117 3.3v regulator in SOT223
@@ -230,10 +234,10 @@ should work fine. TODO: Verify
 ```
 
 * Other
-	* USB cable to Micro USB. TODO: verify connector type.
+	* USB cable to Micro USB. Short or long, depending on your intended use/placement.
 	* 46 Cherry MX compatible key switches
 	* 2 Neoprene, adhesive backed, 4x4", 3mm thick. To be trimmed
-	* 1 (optional) 3D Print Micro pro case
+	* 1 (optional) 3D Print or off-the-shelf case for the Pro Micro receiver
 	
 
 
@@ -243,7 +247,7 @@ green board doesn't physically match the PCB footprint. The correct dimensions
 are: 17.0mm x 20.8mm. The bad dimensions are: 15.09mm x 20.07mm.
 
 The angled headers one builder ordered have a couple of mm between the 90 degree angle and
-the plastic piece. When I cut these flush with the board, the remaining pin
+the plastic piece. When he cut these flush with the board, the remaining pin
 length was too short to connect the ST-Link wires to. His fix for this was to
 pull the plastic part off since the solder is strong enough to hold the pins in
 place. It would be better to get an angle header that has the plastic closer to
@@ -294,6 +298,11 @@ the 15 seconds it took to program.
 
 
 --------------------------------------------------------------------------------------
+## HW DEVELOPMENT
+
+TODO: Complete with KiCAD or similar
+
+--------------------------------------------------------------------------------------
 ## HW ASSEMBLY / the Build process
 
 This is based upon reverse_bias's [build log](https://imgur.com/a/mwTFj#JTzXTCD).
@@ -321,29 +330,34 @@ If you are using an Exacto(tm) knife, use a PCB as a template and to trim the fo
 
 **Strong suggestion:**
 
-I suggest you build on side of the kayboard to completion before starting the
+It is suggested you build one side of the keyboard to completion before starting the
 second side. This way, if you make a mistake you will only have to repare or
 replace one side.
 
 
-Remove the 23 square switch positions from 2 of the PCBs. These become the
-plates.
-Because of the thin material, especially on the sides, used a desk vice for
-these.
+Remove the 23 square switch positions from 2 of the PCBs. The remaining board becomes the
+plate. Because of the thin material, especially on the sides, used a desk vice
+for these. They are fragile and subject to breakage.
 
-The tabs are drilled out to form 'mouse bites'. Rock the breakout back and forth
-about 20 times, all the glass fibres break, and they just fall out.
+Optionally you can consider (untested) scoring both sides of the tabs you are
+about to break with a rolling glass cutter, or (also untested) scoring or
+completely cutting with a power tool like a Dremel. Safety equipment is
+considered essential if you do this.
 
-When I did it too fast, the soldermask flaked off as well. I wasn't too worried
-about wrecking these breakouts though, just threw them out.
+The tabs are drilled out to form 'mouse bites'. Insert a pencil into the center
+hole of the square and rock the breakout back and forth about 20 times, all the
+glass fibers will break, and they just fall out.
 
-There was a little material left, but this is hidden between the case tabs on an
-MX switch, so it doesn't need to be completely flush. I did use flush cutters to 
+If you do it too fast, the soldermask will flake off as well. Don't worry too much
+about wrecking these breakouts though, you're just going to throw them away.
+
+There us a little material left, but this is hidden between the case tabs on an
+MX switch, so it doesn't need to be completely flush. Use flush cutters to 
 knock off any sharp bits though.
 
 As the PCBs are used for the lower connections and the upper plate, the
-unpopulated footprints on the top surface need to be covered. I used black mylar
-tape, as it matched the texture of the PCB and was very thin. I then cut off the
+unpopulated footprints on the top surface need to be covered. Use black mylar
+tape, as it matches the texture of the PCB and is very thin. Cut off the
 overhang into the switch hole with a knife. 
 
 Electrical tape could work as well.
@@ -372,8 +386,8 @@ a matrix or diodes, The keyboard delivers n-key rollover with a direct GPIO pull
 connection for each switch.
 
 There is room next to the header for an LED and a resistor. This was designed
-into the PCB for initial development and is not being used, I don't know which
-is the cathode pin, or what the resistor value should be, or which pads fo to
+into the PCB for initial development and is not being used, It is unknown which
+is the cathode pin, or what the resistor value should be, or which pads go to
 which device. There is no silkscreening indicating device or orientation. OK to
 ignore this.
 
@@ -495,7 +509,8 @@ with the central switch, then slowly worked my way towards the edges keeping it 
 
 ### Add the keycaps
 
-I bought a 108 key blank PBT set of keycaps. The keyboard only uses 46 1U keys though.
+I bought a 108 key blank PBT set of keycaps. The keyboard only uses 46 1U keys
+though.
 
 Map of the profile I used for each key. Grey keys are what I home on, hence the
 flipped R3 under my thumbs.
@@ -580,7 +595,7 @@ A: I think it may be worth trying a pair of these
 ## Resources
 
 * reverse bias's [list of suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom).
-* I got the receiver interface PCB made from OSHpark.
+* The receiver interface PCB can be made from OSHpark.
 * The processor on the "wireless module" card is from [Nordic Semiconductor](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822)
 * Nordic Semiconductor also has an SDK and libraries you can compile into your wireless module. [Dev tools and software](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822).
 * 46 switches, PCB Mount, 5 pin. (2 wires, 2 alignment pins, 1 large center pin)
