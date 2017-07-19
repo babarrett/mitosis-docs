@@ -595,7 +595,7 @@ A: I think it may be worth trying a pair of these
 ## Resources
 
 * reverse bias's [list of suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom).
-* The receiver interface PCB can be made from OSHpark.
+* The receiver interface PCB can be made by OSHpark.
 * The processor on the "wireless module" card is from [Nordic Semiconductor](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822)
 * Nordic Semiconductor also has an SDK and libraries you can compile into your wireless module. [Dev tools and software](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822).
 * 46 switches, PCB Mount, 5 pin. (2 wires, 2 alignment pins, 1 large center pin)
