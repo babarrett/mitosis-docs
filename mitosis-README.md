@@ -34,7 +34,24 @@ TODO:
   * macros
   * handles all the standard QMK functions
 
-### Physical characteristics
+### Design documents: 
+
+TODO: Are these up to date? especially hav reverse\_bias's github moved into QMK?
+  * Main [starter link](https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/) 
+  * Design materials
+    * [PCB manufacturing files](https://github.com/reversebias/mitosis-hardware/tree/master/gerbers)
+    * [PCB design files](https://github.com/reversebias/mitosis-hardware/tree/master/altium-mitosis)
+    * [PDF Schematics](https://github.com/reversebias/mitosis-hardware/tree/master/schematics)
+    * [Lasercutting files](https://github.com/reversebias/mitosis-hardware/tree/master/cnc)
+    * [Wireless firmware](https://github.com/reversebias/mitosis)
+    * [Mitosis QMK source](https://github.com/qmk/qmk_firmware/tree/master/keyboards/mitosis), now merged QMK
+    * [Parts list with suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom)
+
+Schematics can be read, can be imported, displayed and edited with KiCAD. TODO: How to import and save?
+
+
+
+### Physical description
 * The keyboard contains 3 parts: Left keyboard half, right keyboard half, and receiver that plugs into 
 the computer.
 * The receiver and Pro Micro assembly needs to be connected to the computer USB port via a cable.
@@ -79,32 +96,25 @@ In the left keyboard half the battery is positive up, and the right, the battery
 
 The CR2032 batteries are not rechargeable.
 
---------------------------------------------------------------------------------------
-## BACKGROUND
+### Background
 
-### Links:
-  * [git markdown format](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#links) for editing this doc.
-  * Creator: [reverse_bias (reddedit)](https://www.reddit.com/user/reverse_bias)
-  * Builds logs and info:
-    * Original [photo build log](http://imgur.com/a/mwTFj)
-  * Group buys and Intrest Checks:
-  TODO:  double check, especially flashquark
-    * [GB, by PhenixFire]( https://www.reddit.com/r/mechmarket/comments/6bp4s0/gb_mitosis_diy_kit_3_days_to_go/) - Parts, unassembled. Wireless modules pre-flashed. May 17, 2017.
-    * [GB by kaybeerry](https://www.reddit.com/r/MechanicalKeyboards/comments/6l99re/mitosis_partial_builds/) July 4, 2017. Selling maybe 2-10 units.
-    * [IC by Touareg3@flashquark.com](https://www.reddit.com/r/MechanicalKeyboards/comments/6lpuy8/ic_mitosis_wireless_split_ergonomic_keyboard/) 
+#### Links:
+* [git markdown format](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#links) for editing this doc.
+* [/u/reverse_bias (reddedit)](https://www.reddit.com/user/reverse_bias) designed and created the 
+keyboard, announcing and reveling it on
+[reddit.com](https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/), April 18, 2017.
+* Builds logs and info:
+  * Original [photo build log](http://imgur.com/a/mwTFj)
+* Group buys and Interest Checks:
+
+TODO:  double check, especially flashquark
+* [GB, by PhenixFire]( https://www.reddit.com/r/mechmarket/comments/6bp4s0/gb_mitosis_diy_kit_3_days_to_go/) - Parts, unassembled. Wireless modules pre-flashed. May 17, 2017.
+* [GB by kaybeerry](https://www.reddit.com/r/MechanicalKeyboards/comments/6l99re/mitosis_partial_builds/) July 4, 2017. Selling maybe 2-10 units.
+* [IC by Touareg3@flashquark.com](https://www.reddit.com/r/MechanicalKeyboards/comments/6lpuy8/ic_mitosis_wireless_split_ergonomic_keyboard/) 
 on Reddit. July 6, 2017. Assembled keyboard in an acrylic case. PCBs modified with screw holes for the case.
-    * [IC by flashquark](https://geekhack.org/index.php?topic=90442.msg2453492#msg2453492) on Geekhack. July 6, 2017.
-    * [GB by Touareg3](https://www.reddit.com/r/MechanicalKeyboards/comments/6m56id/gb_mitosis_wireless_split_ergonomic_keyboard_gb/)@flashquark.com July 9, 2017
-    * [GB more info by Touareg3](https://www.reddit.com/r/MechanicalKeyboards/comments/6mm3ke/gb_mitosis_wireless_split_ergonomic_keyboard_with/)@flashquark.com July 11, 2017.
-
- * Latest [code+readme](https://github.com/reversebias/mitosis)
-    * Github of kbd halves and receiver moduals: https://github.com/reversebias/mitosis
-  * [OpenOCD](http://openocd.org/), On-Chip Designer
-  * Programmer USB to wireless moduals:
-    * Search [ebay](http://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_nkw=st+link+v2&_blrs=spell_check) 
-for ST-Link V2
-    * Search [AliExpress](https://www.aliexpress.com/wholesale?catId=0&initiative_id=SB_20170515155207&SearchText=st+link+v2)
-for ST-Link V2
+  * [IC by flashquark](https://geekhack.org/index.php?topic=90442.msg2453492#msg2453492) on Geekhack. July 6, 2017.
+  * [GB by Touareg3](https://www.reddit.com/r/MechanicalKeyboards/comments/6m56id/gb_mitosis_wireless_split_ergonomic_keyboard_gb/)@flashquark.com July 9, 2017
+  * [GB more info by Touareg3](https://www.reddit.com/r/MechanicalKeyboards/comments/6mm3ke/gb_mitosis_wireless_split_ergonomic_keyboard_with/)@flashquark.com July 11, 2017.
 
 --------------------------------------------------------------------------------------
 ## Details
@@ -172,41 +182,30 @@ If you use the stock nRF51 firmware, it doesn't require pairing, the addresses
 are hard coded.
 
 
-### The Design: 
-
-TODO: Are these up to date? especially hav reverse\_bias's github moved into QMK?
-  * Main [starter link](https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/) 
-  * Design materials
-    * [PCB manufacturing files](https://github.com/reversebias/mitosis-hardware/tree/master/gerbers)
-    * [PCB design files](https://github.com/reversebias/mitosis-hardware/tree/master/altium-mitosis)
-    * [PDF Schematics](https://github.com/reversebias/mitosis-hardware/tree/master/schematics)
-    * [Lasercutting files](https://github.com/reversebias/mitosis-hardware/tree/master/cnc)
-    * [Wireless firmware](https://github.com/reversebias/mitosis)
-    * [Mitosis QMK source](https://github.com/qmk/qmk_firmware/tree/master/keyboards/mitosis), now merged QMK
-    * [Parts list with suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom)
-
-Schmatics can be read, can be imported, displayed and edited with KiCAD. TODO: How to import and save?
-
-
 -----------------------------------------------------------------------------------------
 ## Parts / Bill of materials
-    TODO: INSERT HERE
+    TODO: INSERT Parts / Bill of materials HERE
 
 --------------------------------------------------------------------------------------
-## Tools, ancillary materials required
+## Tools and supplies
 * Soldering iron suitable for SMT soldering
 * Solder paste
 * Solder
 * Multimeter (continuity tester)
 * Exacto(tm) knife
 * ST-Link V2 (or clone) to program wireless modules
+* Programmer USB to wireless moduals:
+  * Search [ebay](http://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_nkw=st+link+v2&_blrs=spell_check) 
+for ST-Link V2
+  * Search [AliExpress](https://www.aliexpress.com/wholesale?catId=0&initiative_id=SB_20170515155207&SearchText=st+link+v2)
+for ST-Link V2
 * tweezers (for SMT work)
 * Black mylar tape, or electrical tape to cover top of plates and wireless module.
 * magnification
 * De-soldering equipment, in case something goes wrong
 
 --------------------------------------------------------------------------------------
-## SW DEVELOPMENT
+## SOFTWARE DEVELOPMENT
 
 TODO: Complete for macOS Pro Micro and wireless dev.
 
@@ -235,15 +234,72 @@ programming once. I just held the four pins against the sides of the holes for
 the 15 seconds it took to program.
 
 
+--------------------------------------------------------------------------------------
+### Development Tools needed
+
+#### Both
+* git
+
+#### Wireless Modules
+* (some compiler, linker tool chain) to recompile for wireless module.
+* [OpenOCD](http://openocd.org/) To flash and debug the wireless module.
+
+#### Receiver Module (QMK)
+* (some compiler, linker tool chain) QMK to recompile for controller?
+  * macOS
+  * Linux
+  * Windows
+* (some flash loader) to re-flash the Pro Micro
+  * macOS
+  * Linux
+  * Windows
+* There is a docker in QMK
+
+* Latest [code+readme](https://github.com/reversebias/mitosis)
+  * Github of kbd halves and receiver moduals: https://github.com/reversebias/mitosis
+  * [OpenOCD](http://openocd.org/), On-Chip Designer
+
+### Source Code Repositories
+  * TODO: add links to these.
+  * QMK
+  * Nordic
 
 --------------------------------------------------------------------------------------
 ## HW DEVELOPMENT
 
-TODO: Complete with KiCAD or similar
+TODO: Complete with KiCAD or similar.
+
+-------------------------------------------
+## Future design thoughts
+
+Q: Is it possible to add a wireless numpad? Using PIPE_NUMBER=2? 
+How many devices can run at the same time with the receiver?
+
+A: The only limitation to the number of devices is the Gazell limit of 8. Adding
+another wireless keyboard will require simple changes to the wireless module
+firmware. PIPE_NUMBER=0, and 1 are already in use. You will also need to have
+the ProMicro expect these new pipe communications, and expand it's mental map of
+those new key positions. We're only starting with 46 keys, so adding 2 more wireless 
+units would bring the total to 96 keys. Easily done.
+  
+Q: Is it possible to add more keys or columns (with a redesigned PCB)?
+
+A: Yes, though some software changes would be required too. reverse_bias says: I
+would say that 29 is trivially easy, 31 is possible if I make a version of the
+software that doesn't use the LF crystal. 26-27 would be around the practical
+limit for a reversible design like Mitosis. ergomacro notes that adding 1 more
+key (24) looks trivial in the software. We're already sending 3 bytes (23 bits)
+to represent the state of the keys. 24 keys would still fit in 3 bytes. Going
+beyond that requires a fourth byte for the extra keys. Still, not a lot of work.
+
+Q: Any ideas about "tenting?"
+
+A: I think it may be worth trying a pair of these
+[stands](https://www.amazon.com/gp/product/B00HHEAMXC/ref=oh_aui_detailpage_o02_s00?ie=UTF8&psc=1).
 
 --------------------------------------------------------------------------------------
 ## HW ASSEMBLY / the Build process
-    TODO: INSERT HERE
+    TODO: INSERT the Build process HERE
 
 ### Finishing the neoprene bases
 
@@ -313,43 +369,10 @@ the only way to be sure the nRF51 is soldered on correctly is to put a
 multimeter in continuity mode and start poking adjacent pins. If it beeps, get
 that solder, flux, sucker, and try again.
 
--------------------------------------------
-## Future design thoughts
-
-Q: Is it possible to add a wireless numpad? Using PIPE_NUMBER=2? 
-How many devices can run at the same time with the receiver?
-
-A: The only limitation to the number of devices is the Gazell limit of 8. Adding
-another wireless keyboard will require simple changes to the wireless module
-firmware. PIPE_NUMBER=0, and 1 are already in use. You will also need to have
-the ProMicro expect these new pipe communications, and expand it's mental map of
-those new key positions. We're only starting with 46 keys, so adding 2 more wireless 
-units would bring the total to 96 keys. Easily done.
-  
-Q: Is it possible to add more keys or columns (with a redesigned PCB)?
-
-A: Yes, though some software changes would be required too. reverse_bias says: I
-would say that 29 is trivially easy, 31 is possible if I make a version of the
-software that doesn't use the LF crystal. 26-27 would be around the practical
-limit for a reversible design like Mitosis. ergomacro notes that adding 1 more
-key (24) looks trivial in the software. We're already sending 3 bytes (23 bits)
-to represent the state of the keys. 24 keys would still fit in 3 bytes. Going
-beyond that requires a fourth byte for the extra keys. Still, not a lot of work.
-
-Q: Any ideas about "tenting?"
-
-A: I think it may be worth trying a pair of these
-[stands](https://www.amazon.com/gp/product/B00HHEAMXC/ref=oh_aui_detailpage_o02_s00?ie=UTF8&psc=1).
-
---------------------------------------------------------------------------------------
-## Software needed
-* [OpenOCD](http://openocd.org/) To flash wireless
-* QMK?? to flash controller?
-* ??? to compile QMK
-* There is a docker in QMK
-
 --------------------------------------------------------------------------------------
 ## Resources
+
+TODO: Include every link in the doc?
 
 * reverse bias's [list of suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom).
 * The receiver interface PCB can be made by OSHpark.
