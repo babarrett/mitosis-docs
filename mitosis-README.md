@@ -382,7 +382,7 @@ TODO: Include every link in the doc?
       46 * $0.29 Gateron key switches (blue tac 55, *brown tac 45, *clear lin 35, red lin 45):
       https://techkeys.us/collections/accessories/products/gateron-keyboard-switches
       Reverse\_bias used blues.
-* Waveshare has a [Development Wiki](www.waveshare.com/wiki/Core51822_(B)).
+* Waveshare has a [Development Wiki](http://www.waveshare.com/wiki/Core51822_(B)).
 * 121 1u DSA PBT keycaps for $36 from [Aliexpress](https://www.aliexpress.com/item/white-and-grey-dsa-keycaps-pbt-blank-keycaps-for-wried-mechanical-gaming-keyboard/32793784962.html?spm=2114.01010208.3.10.Ip97XM&ws_ab_test=searchweb0_0,searchweb201602_4_10152_10065_10151_10068_436_10136_10137_10157_10060_10138_10155_10062_10156_10154_10056_10055_10054_10059_100031_10099_10103_10102_10096_10147_10052_10053_10107_10050_10142_10051_10171_10084_10083_10080_10082_10081_10110_10111_10112_10113_10114_10181_10183_10182_10185_10033_10032_10078_10079_10077_10073_10070_10123,searchweb201603_1,ppcSwitch_4&btsid=bde190d2-b208-4e07-a433-5491b2c23ca8&algo_expid=4d53a13e-348f-4808-8ed7-6c76b6d1b1f8-1&algo_pvid=4d53a13e-348f-4808-8ed7-6c76b6d1b1f8).
 Enough for 2 keyboards, and some left over. Or for $54 you hsve enough keycaps for 3.
 
