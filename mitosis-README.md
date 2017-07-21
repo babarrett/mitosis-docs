@@ -36,7 +36,7 @@ TODO:
 
 ### Design documents: 
 
-TODO: Are these up to date? especially hav reverse\_bias's github moved into QMK?
+TODO: Are these up to date? especially hav reverse\_bias's Github moved into QMK?
   * Main [starter link](https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/) 
   * Design materials
     * [PCB manufacturing files](https://github.com/reversebias/mitosis-hardware/tree/master/gerbers)
@@ -194,8 +194,8 @@ are hard coded.
 * Multimeter (continuity tester)
 * Exacto(tm) knife
 * ST-Link V2 (or clone) to program wireless modules
-* Programmer USB to wireless moduals:
-  * Search [ebay](http://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_nkw=st+link+v2&_blrs=spell_check) 
+* Programmer USB to wireless modules:
+  * Search [eBay](http://www.ebay.com/sch/i.html?_from=R40&_sacat=0&_nkw=st+link+v2&_blrs=spell_check) 
 for ST-Link V2
   * Search [AliExpress](https://www.aliexpress.com/wholesale?catId=0&initiative_id=SB_20170515155207&SearchText=st+link+v2)
 for ST-Link V2
@@ -256,7 +256,7 @@ the 15 seconds it took to program.
 * There is a docker in QMK
 
 * Latest [code+readme](https://github.com/reversebias/mitosis)
-  * Github of kbd halves and receiver moduals: https://github.com/reversebias/mitosis
+  * Github of kbd halves and receiver modules: https://github.com/reversebias/mitosis
   * [OpenOCD](http://openocd.org/), On-Chip Designer
 
 ### Source Code Repositories
@@ -331,7 +331,7 @@ flipped R3 under my thumbs.
 
 
 ### Conclusion
-Fibreglass PCBs are strong, and with the close coupling of the two layers, the
+Fiberglass PCBs are strong, and with the close coupling of the two layers, the
 keyboard has almost zero flex when twisted. And since the entire bottom PCB is
 supported with dense foam, the only board flex when typing is the desk itself. 
 
@@ -384,5 +384,5 @@ TODO: Include every link in the doc?
       Reverse\_bias used blues.
 * Waveshare has a [Development Wiki](http://www.waveshare.com/wiki/Core51822_(B)).
 * 121 1u DSA PBT keycaps for $36 from [Aliexpress](https://www.aliexpress.com/item/white-and-grey-dsa-keycaps-pbt-blank-keycaps-for-wried-mechanical-gaming-keyboard/32793784962.html?spm=2114.01010208.3.10.Ip97XM&ws_ab_test=searchweb0_0,searchweb201602_4_10152_10065_10151_10068_436_10136_10137_10157_10060_10138_10155_10062_10156_10154_10056_10055_10054_10059_100031_10099_10103_10102_10096_10147_10052_10053_10107_10050_10142_10051_10171_10084_10083_10080_10082_10081_10110_10111_10112_10113_10114_10181_10183_10182_10185_10033_10032_10078_10079_10077_10073_10070_10123,searchweb201603_1,ppcSwitch_4&btsid=bde190d2-b208-4e07-a433-5491b2c23ca8&algo_expid=4d53a13e-348f-4808-8ed7-6c76b6d1b1f8-1&algo_pvid=4d53a13e-348f-4808-8ed7-6c76b6d1b1f8).
-Enough for 2 keyboards, and some left over. Or for $54 you hsve enough keycaps for 3.
+Enough for 2 keyboards, and some left over. Or for $54 you have enough keycaps for 3.
 
