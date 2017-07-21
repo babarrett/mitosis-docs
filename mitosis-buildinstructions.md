@@ -77,7 +77,7 @@ of the board, are long enough to reach into the ST-LINK V2 programmer.**
 Solder a reverse polarity protection FET (SI2302) and a programming header onto
 the other side (top) of the board. These are the only electronic components. As
 there are 23 switches and 31 GPIOs on the wireless module, there is no need for
-a matrix or diodes, The keyboard delivers n-key rollover with a direct GPIO pullup
+a matrix or diodes, The keyboard delivers n-key rollover with a direct GPIO pull-up
 connection for each switch.
 
 There is room next to the header for an LED and a resistor. This was designed
@@ -112,9 +112,9 @@ Once the boards were properly pressed together, solder the switches in.
 
 Solder the header pins on either side of the battery:
 * first, cut the top of the header pine flush with the top (plate) board.
-* next, solder the top of the battery stabilisers to the plate.
+* next, solder the top of the battery stabilizers to the plate.
 * then turn the keyboard over. Insert a battery between the PCBs and squeeze the
-PCBs as you solder the bottom of each stabiliser. the spring of the fibreglass
+PCBs as you solder the bottom of each stabiliser. the spring of the fiberglass
 will hold the battery snugly.
 
 **Pause the work on the keyboard halves. We'll come back to the neoprene
