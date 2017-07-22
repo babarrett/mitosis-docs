@@ -12,7 +12,7 @@ TODO:
 * Break into multiple files?
 
 --------------------------------------------------------------------------------------
-## OVERVIEW
+## OVERVIEW {#OVERVIEW}
 ### Design Goals
 * Open-source design with all schematics, PCB layouts, etc. available
 * Wireless design
@@ -117,7 +117,7 @@ on Reddit. July 6, 2017. Assembled keyboard in an acrylic case. PCBs modified wi
   * [GB more info by Touareg3](https://www.reddit.com/r/MechanicalKeyboards/comments/6mm3ke/gb_mitosis_wireless_split_ergonomic_keyboard_with/)@flashquark.com July 11, 2017.
 
 --------------------------------------------------------------------------------------
-## Details
+## Details {#Details}
 
 ### Electrical
 * Keyboard:
@@ -183,11 +183,11 @@ are hard coded.
 
 
 -----------------------------------------------------------------------------------------
-## Parts / Bill of materials
+## Parts / Bill of materials {#Parts / Bill of materials}
     TODO: INSERT Parts / Bill of materials HERE
 
 --------------------------------------------------------------------------------------
-## Tools and supplies
+## Tools and supplies {#Tools and supplies}
 * Soldering iron suitable for SMT soldering
 * Solder paste
 * Solder
@@ -205,9 +205,42 @@ for ST-Link V2
 * De-soldering equipment, in case something goes wrong
 
 --------------------------------------------------------------------------------------
-## SOFTWARE DEVELOPMENT
+## SOFTWARE DEVELOPMENT QMK {#SOFTWARE DEVELOPMENT QMK}
 
 TODO: Complete for macOS Pro Micro and wireless dev.
+
+There are two different sets of software you can change:
+* QMK, the keyboard layout and behaviour software, and
+* The nRF51822 wireless module software.
+
+### QMK - Keyboard software
+"QMK" is the acronym for Quantum Mechanical Keyboard firmware. The main links are here:
+* QMK [web site](http://qmk.fm)
+* QMK [software repository](https://github.com/qmk/qmk_firmware)
+* QMK [Documentation](https://docs.qmk.fm)
+
+As noted, above, the QMK software resides on the "receiver" within the Pro Micro.
+
+Once you have downloaded (or git cloned) the directory the QMK Mitosis software
+is located here:
+qmk_firmware/keyboards/mitosis
+
+The file that describes the key mapping (where each key is) and function (what
+each key does) is here: qmk_firmware/keyboards/mitosis/keymap.c That file also
+defines the behavior of the RGB LED on the receiver module.
+
+
+--------------------------------------------------------------------------------------
+## SOFTWARE DEVELOPMENT nRF51822 Wireless Modules {#SOFTWARE DEVELOPMENT nRF51822 Wireless Modules}
+
+(reverse_bias) I'll set up a git repo that you can clone into
+the extracted Nordic SDK, and then build from there. But I'll also upload some
+.hex files if you don't need to modify the wireless. I think most people only
+want keymap changes anyway.
+
+### nRF51822 wireless module software
+There are three "nRF51822 wireless modules" in the system, one on each keyboard half, 
+and one on the receiver. Each of these modules has it's own firmware. 
 
 (reverse_bias) I'll set up a git repo that you can clone into
 the extracted Nordic SDK, and then build from there. But I'll also upload some
@@ -221,17 +254,11 @@ from a USB drive is probably the easiest and safest option. (Bruce says if you
 want to run Linux on macOS maybe use Docker, if someone has created a volume for
 this.)
 
-Looks like there macOS programs that will program via the ST-LINK V2 also.
+Looks like there are macOS programs that will program via the ST-LINK V2 also.
 Mac software install for the ST-LINK programmer: http://macappstore.org/stlink/
 
   (brew install stlink)
 
-(runninghack) Do I need to solder 4 wires on the receiver and connect the
-ST-Link V2 to them? I just found there are also 4 holes on the receiver. 
-
-(reverse_bias) Ah. I didn't actually bother to solder to mine, as I was only
-programming once. I just held the four pins against the sides of the holes for
-the 15 seconds it took to program.
 
 
 --------------------------------------------------------------------------------------
@@ -265,12 +292,12 @@ the 15 seconds it took to program.
   * Nordic
 
 --------------------------------------------------------------------------------------
-## HW DEVELOPMENT
+## HW DEVELOPMENT {#HW DEVELOPMENT}
 
 TODO: Complete with KiCAD or similar.
 
 -------------------------------------------
-## Future design thoughts
+## Future design thoughts {#Future design thoughts}
 
 Q: Is it possible to add a wireless numpad? Using PIPE_NUMBER=2? 
 How many devices can run at the same time with the receiver?
@@ -298,7 +325,7 @@ A: I think it may be worth trying a pair of these
 [stands](https://www.amazon.com/gp/product/B00HHEAMXC/ref=oh_aui_detailpage_o02_s00?ie=UTF8&psc=1).
 
 --------------------------------------------------------------------------------------
-## HW ASSEMBLY / the Build process
+## HW ASSEMBLY / the Build process {#HW ASSEMBLY / the Build process}
     TODO: INSERT the Build process HERE
 
 ### Finishing the neoprene bases
@@ -370,7 +397,7 @@ multimeter in continuity mode and start poking adjacent pins. If it beeps, get
 that solder, flux, sucker, and try again.
 
 --------------------------------------------------------------------------------------
-## Resources
+## Resources {#Resources}
 
 TODO: Include every link in the doc?
 
