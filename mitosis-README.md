@@ -12,7 +12,7 @@ TODO:
 * Break into multiple files?
 
 --------------------------------------------------------------------------------------
-## OVERVIEW {#OVERVIEW}
+## OVERVIEW
 ### Design Goals
 * Open-source design with all schematics, PCB layouts, etc. available
 * Wireless design
@@ -42,7 +42,7 @@ TODO: Are these up to date? especially hav reverse\_bias's Github moved into QMK
     * [PCB manufacturing files](https://github.com/reversebias/mitosis-hardware/tree/master/gerbers)
     * [PCB design files](https://github.com/reversebias/mitosis-hardware/tree/master/altium-mitosis)
     * [PDF Schematics](https://github.com/reversebias/mitosis-hardware/tree/master/schematics)
-    * [Lasercutting files](https://github.com/reversebias/mitosis-hardware/tree/master/cnc)
+    * [Lasercutting files](https://github.com/reversebias/mitosis-hardware/tree/master/cnc) (for foam at base of keyboard)
     * [Wireless firmware](https://github.com/reversebias/mitosis)
     * [Mitosis QMK source](https://github.com/qmk/qmk_firmware/tree/master/keyboards/mitosis), now merged QMK
     * [Parts list with suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom)
@@ -117,7 +117,7 @@ on Reddit. July 6, 2017. Assembled keyboard in an acrylic case. PCBs modified wi
   * [GB more info by Touareg3](https://www.reddit.com/r/MechanicalKeyboards/comments/6mm3ke/gb_mitosis_wireless_split_ergonomic_keyboard_with/)@flashquark.com July 11, 2017.
 
 --------------------------------------------------------------------------------------
-## Details {#Details}
+## Details
 
 ### Electrical
 * Keyboard:
@@ -183,11 +183,11 @@ are hard coded.
 
 
 -----------------------------------------------------------------------------------------
-## Parts / Bill of materials {#Parts / Bill of materials}
+## Parts / Bill of materials
     TODO: INSERT Parts / Bill of materials HERE
 
 --------------------------------------------------------------------------------------
-## Tools and supplies {#Tools and supplies}
+## Tools and supplies
 * Soldering iron suitable for SMT soldering
 * Solder paste
 * Solder
@@ -205,7 +205,7 @@ for ST-Link V2
 * De-soldering equipment, in case something goes wrong
 
 --------------------------------------------------------------------------------------
-## SOFTWARE DEVELOPMENT QMK {#SOFTWARE DEVELOPMENT QMK}
+## SOFTWARE DEVELOPMENT QMK
 
 TODO: Complete for macOS Pro Micro and wireless dev.
 
@@ -231,7 +231,7 @@ defines the behavior of the RGB LED on the receiver module.
 
 
 --------------------------------------------------------------------------------------
-## SOFTWARE DEVELOPMENT nRF51822 Wireless Modules {#SOFTWARE DEVELOPMENT nRF51822 Wireless Modules}
+## SOFTWARE DEVELOPMENT nRF51822 Wireless Modules
 
 (reverse_bias) I'll set up a git repo that you can clone into
 the extracted Nordic SDK, and then build from there. But I'll also upload some
@@ -289,15 +289,27 @@ Mac software install for the ST-LINK programmer: http://macappstore.org/stlink/
 ### Source Code Repositories
   * TODO: add links to these.
   * QMK
+  * reverse_bias for wireless code.
   * Nordic
 
+```
+      ST-LINK V2 pin order                    Receiver pin order
+| ST-LINK V2 |  Use  | Receiver |      | Receiver |  Use  | ST-LINK V2 |
++-------+------------+----------+      +----------+-------+------------+
+| Pin-2      | SWCLK | Pin-3    |      | Pin-1    | 3.3V  | Pin-8      |
+| Pin-4      | SWDIO | Pin-2    |      | Pin-2    | SWDIO | Pin-4      |
+| Pin-6      | GND   | Pin-4    |      | Pin-3    | SWCLK | Pin-2      |
+| Pin-8      | 3.3V  | Pin-1    |      | Pin-4    | GND   | Pin-6      |
++-------+------------+----------+      +----------+-------+------------+
+```
+
 --------------------------------------------------------------------------------------
-## HW DEVELOPMENT {#HW DEVELOPMENT}
+## HW DEVELOPMENT
 
 TODO: Complete with KiCAD or similar.
 
 -------------------------------------------
-## Future design thoughts {#Future design thoughts}
+## Future design thoughts
 
 Q: Is it possible to add a wireless numpad? Using PIPE_NUMBER=2? 
 How many devices can run at the same time with the receiver?
@@ -325,7 +337,7 @@ A: I think it may be worth trying a pair of these
 [stands](https://www.amazon.com/gp/product/B00HHEAMXC/ref=oh_aui_detailpage_o02_s00?ie=UTF8&psc=1).
 
 --------------------------------------------------------------------------------------
-## HW ASSEMBLY / the Build process {#HW ASSEMBLY / the Build process}
+## HW ASSEMBLY / the Build process
     TODO: INSERT the Build process HERE
 
 ### Finishing the neoprene bases
@@ -397,19 +409,47 @@ multimeter in continuity mode and start poking adjacent pins. If it beeps, get
 that solder, flux, sucker, and try again.
 
 --------------------------------------------------------------------------------------
-## Resources {#Resources}
+## Resources
 
 TODO: Include every link in the doc?
 
 * reverse bias's [list of suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom).
 * The receiver interface PCB can be made by OSHpark.
-* The processor on the "wireless module" card is from [Nordic Semiconductor](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822)
-* Nordic Semiconductor also has an SDK and libraries you can compile into your wireless module. [Dev tools and software](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822).
-* 46 switches, PCB Mount, 5 pin. (2 wires, 2 alignment pins, 1 large center pin)
-      46 * $0.29 Gateron key switches (blue tac 55, *brown tac 45, *clear lin 35, red lin 45):
-      https://techkeys.us/collections/accessories/products/gateron-keyboard-switches
-      Reverse\_bias used blues.
-* Waveshare has a [Development Wiki](http://www.waveshare.com/wiki/Core51822_(B)).
+* The processor on the "wireless module" card is from 
+[Nordic Semiconductor](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822)
+* Nordic Semiconductor also has an SDK and libraries you can compile into your wireless module. 
+[Dev tools and software](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822).
+* You'll need 46 switches, PCB Mount, 5 pins on each. (2 wires, 2 alignment pins, 1 large center pin)
+Gateron key switches (blue tac 55, *brown tac 45, *clear lin 35, red lin 45) are available for $0.29/ea
+at [techkeys.us](https://techkeys.us/collections/accessories/products/gateron-keyboard-switches)
+* Waveshare has a [Development
+Wiki](http://www.waveshare.com/wiki/Core51822_(B)) for the nRF51822 wireless
+module.
 * 121 1u DSA PBT keycaps for $36 from [Aliexpress](https://www.aliexpress.com/item/white-and-grey-dsa-keycaps-pbt-blank-keycaps-for-wried-mechanical-gaming-keyboard/32793784962.html?spm=2114.01010208.3.10.Ip97XM&ws_ab_test=searchweb0_0,searchweb201602_4_10152_10065_10151_10068_436_10136_10137_10157_10060_10138_10155_10062_10156_10154_10056_10055_10054_10059_100031_10099_10103_10102_10096_10147_10052_10053_10107_10050_10142_10051_10171_10084_10083_10080_10082_10081_10110_10111_10112_10113_10114_10181_10183_10182_10185_10033_10032_10078_10079_10077_10073_10070_10123,searchweb201603_1,ppcSwitch_4&btsid=bde190d2-b208-4e07-a433-5491b2c23ca8&algo_expid=4d53a13e-348f-4808-8ed7-6c76b6d1b1f8-1&algo_pvid=4d53a13e-348f-4808-8ed7-6c76b6d1b1f8).
 Enough for 2 keyboards, and some left over. Or for $54 you have enough keycaps for 3.
+* Adafruit.com sells the [ST-Link v2](https://www.adafruit.com/product/2548) for
+$12.50. They also point out that you can even update the firmware on the dongle
+as necessary, it has a DFU bootloader (they unplugged/replugged it from USB to
+kick off the DFU process).
+* ST.com has additional [developer
+support](http://www.st.com/en/development-tools/st-link-v2.html) resources
+available.
+
+### Wireless
+#### OpenOCD - Open On Chip Debugger
+* reversebias' [set-up for OpenOCD](https://github.com/reversebias/mitosis).
+Start here. The instructions are Linux based, but other OSs are available from the 
+OpenOCD site.
+* Main [OpenOCD](http://openocd.org) site, for reference or trouble shooting.
+  * [Binaries](http://openocd.org/getting-openocd/) available for Linux, macOS, and Windows
+  * [Documentation](http://openocd.org/documentation/)
+  * [Directions and use](http://openocd.org/doc/html/index.html) documentation, in HTML.
+
+
+"?" for reversebias
+* no encryption yet, right?
+* no pairing with receiver button yet, right?
+* how would I change the pairing #?
+
+
 
