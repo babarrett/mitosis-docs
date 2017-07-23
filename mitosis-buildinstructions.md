@@ -146,14 +146,32 @@ Solder on the small surface mount components to the receiver PCB:
 * Solder the two (2) 1206 4.7k resistor arrays side-by-side onto the 16 pads,
 close to the USB connector edge of the board, furthest from the wireless module.
 There is no wrong orientation, no "Pin 1."
-* Solder the LED onto the 4 remaining pads closest to the Reset switch. The pad
-with the small silkscreened circle is for pin 1 of the LED. Pin 1 on the LED is
-the one where the corner has been clipped off. See
+* Solder the LED onto the 4 remaining pads closest to the resistor arrays and
+Reset switch. The pad with the small silkscreened circle is for pin 1 of the
+LED. Pin 1 on the LED is the one where the corner has been clipped off. See
 [mouser.com](http://www.mouser.com/ds/2/90/CLVBAFKA-470871.pdf)
 * Solder one of the switches to the pairing switch location. Four (4) pads
 between to the "P" and the wireless module.
 * Solder the 1117 3.3v regulator (SOT223 form factor) onto the 4 pins near the wireless module. 
 * Solder the reset switch to the 4 pads next to the "R"
+* (optional) If you think there is a chance that you will want to reprogram the
+nRF51822 wireless module on the receiver, for example to support encrypted
+communications or dynamic pairing at a later date, you can solder an additional
+4-pin, right angle header to the "under-side" of the receiver board. This is the
+same side the Pro Micro will be attached to, and the side beneath the wireless
+module itself. Note that the hole with the square hole is "pin-1" of the
+connector. Also note that you'll always have easy access to this part of the
+board, so you can always add it later. Lastly, you could leave this off and 
+connect it, when needed, by holding pins to the plated holes.
+```
+| Value | ST-LINK V2 | Receiver |
++-------+------------+----------+
+| 3.3V  | Pin-8      | Pin-1    |
+| GND   | Pin-6      | Pin-4    |
+| SWDIO | Pin-4      | Pin-2    |
+| SWCLK | Pin-2      | Pin-3    |
++-------+------------+----------+
+```
 * (optional) Solder a little speaker to pin 5 on the Pro Micro for music mode on the receiver.
 
 You want to solder two 6 pin straight headers into the Pro Micro, at the USB connector end.
