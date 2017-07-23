@@ -23,7 +23,7 @@
 	* 1 1117 3.3v regulator in SOT223
 	* 2 1206 (3216 metric) 4.7k resistor array, labeled "472" [Mouser.com](http://www.mouser.com/ProductDetail/Yageo/YC164-JR-074K7L/?qs=sGAEpiMZZMvrmc6UYKmaNXwfiSjkvz6n4e34vrjrWiE%3d)
 	* 2 SMD tactile buttons (Reset and Pairing)
-	* 4 (optional) Right angle 0.1" header. Used for programming the wireless module on the receiver
+	* 4 (optional) Right angle 0.1" header. 4 pins. Used for programming the wireless module on the receiver
 	* 1 (optional) LED RGB diffused 4PLCC SMD. Looks like CLVBA-FKA-CAEDH8BBB7A363 or CLVBA-FKA-CA1D181BB7R3R3
 should work fine. TODO: Verify
 
