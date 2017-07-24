@@ -8,6 +8,10 @@ The goal of this project is to suport builders of the Mitosis at all stages of
 the project, with the hope that this result in many, many successful builds of
 this keyboard.
 
+## The status
+This is still a work in process. The procedures **have not** been tested. 
+Please use at your own risk, and send me any corrections and clarifications you notice.
+
 ## Topics
 The topics to be covered are:
   * Overview
