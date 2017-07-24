@@ -445,11 +445,22 @@ OpenOCD site.
   * [Documentation](http://openocd.org/documentation/)
   * [Directions and use](http://openocd.org/doc/html/index.html) documentation, in HTML.
 
+### Trouble shooting
+As I come across things.
+
+Check for (lack of continuity) across adjacent pins on the wireless modules.
+
+
+#### Won't Program
+* https://www.reddit.com/r/MechanicalKeyboards/comments/6cken8/help_stuck_in_a_pickle_problems_programming_my/
+* https://www.reddit.com/r/olkb/comments/6pagrd/finished_assembling_my_gherkin_cant_program_it_at/
+
+
 
 "?" for reversebias
-* no encryption yet, right?
-* no pairing with receiver button yet, right?
-* how would I change the pairing #?
+* No encryption yet, right?
+* No pairing with receiver button yet, right?
+* How would I change the pairing #s in the code?
 
 
 
