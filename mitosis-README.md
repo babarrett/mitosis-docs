@@ -1,13 +1,15 @@
 # MITOSIS 2017 -- Information, parts, build instructions
 
-This document has been created using available resources on Reddit.com, Geekhack.org, and other
-web sources. The intent is to gather all useful and available information to make building
-and programming the Mitosis wireless keyboard as easy as possible.
+This document has been created using available resources on Reddit.com,
+Geekhack.org, and other web sources. The intent is to gather all useful and
+available information to make building and programming the Mitosis wireless
+keyboard as easy as possible, with the greatest chance for success.
 
 TODO: 
 * Check name and clock speed on Pro Micro
-* ATmega32U4 processor?
-* battery life? , but it would still last years in standby, akin to the battery shelf life.
+* Verify ATmega32U4 processor?
+* Validate expected battery life. It is stated that it could still last years in
+standby, akin to the battery shelf life.
 * Add photos, especially annotated close-ups of boards for soldering small parts.
 * Break into multiple files?
 
@@ -16,20 +18,20 @@ TODO:
 ### Design Goals
 * Open-source design with all schematics, PCB layouts, etc. available
 * Wireless design
-* caseless thin form factor (no wrist rests)
+* Caseless thin form factor (no wrist rests)
 * Both halves of the board communicate wirelessly with the receiver. 
 * Very low power, long battery life
-* Keyboard processor is kept in deep sleep as much as possible
-* Using key interrupts to help accomplish this
-* scanning a keyboard matrix would mean the processor is on "all the time" so a matrix is not used
-* each key is, therefore, wired to the processor directly, and no diodes are needed.
+* Keyboard processor is kept in deep sleep as much as possible.
+  * Use key interrupts to help accomplish this.
+  * Scanning a keyboard matrix would mean the processor is on "all the time" so a matrix is not used
+  * Each key is, therefore, wired to the processor directly, and no diodes are needed.
 * Small PCB, 10x10cm for reduced production costs in small quantities
 * The same PCBs are used for the left and right side of the keyboard
 * The same PCBs are used as the "plate" for the keyboard
 * low latency
-* the receiver, and therefore keyboard is QMK software compatible
-* encrypted communication from keyboard to receiver TODO: True? Not done yet? Check source.
-* The Mitosis firmware is included into the default QMK firmware set.
+* the receiver, and therefore keyboard is QMK software compatible≥ Open source.
+* encrypted communication from keyboard to receiver TODO: True? Not done yet?
+* The Mitosis firmware is included in the default QMK firmware set.
   * intelligent layers 
   * macros
   * handles all the standard QMK functions
@@ -37,23 +39,32 @@ TODO:
 ### Design documents: 
 
 TODO: Are these up to date? especially hav reverse\_bias's Github moved into QMK?
-  * Main [starter link](https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/) 
-  * Design materials
-    * [PCB manufacturing files](https://github.com/reversebias/mitosis-hardware/tree/master/gerbers)
-    * [PCB design files](https://github.com/reversebias/mitosis-hardware/tree/master/altium-mitosis)
-    * [PDF Schematics](https://github.com/reversebias/mitosis-hardware/tree/master/schematics)
-    * [Lasercutting files](https://github.com/reversebias/mitosis-hardware/tree/master/cnc) (for foam at base of keyboard)
-    * [Wireless firmware](https://github.com/reversebias/mitosis)
-    * [Mitosis QMK source](https://github.com/qmk/qmk_firmware/tree/master/keyboards/mitosis), now merged QMK
-    * [Parts list with suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom)
+* Main [starter link](https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/) 
+* Design materials
+	* [PCB manufacturing files](https://github.com/reversebias/mitosis-hardware/tree/master/gerbers)
+	* [PCB design files](https://github.com/reversebias/mitosis-hardware/tree/master/altium-mitosis)
+	* [PDF Schematics](https://github.com/reversebias/mitosis-hardware/tree/master/schematics)
+	* [Lasercutting files](https://github.com/reversebias/mitosis-hardware/tree/master/cnc) (for foam at base of keyboard)
+	* [Wireless firmware](https://github.com/reversebias/mitosis)
+	* [Mitosis QMK source](https://github.com/qmk/qmk_firmware/tree/master/keyboards/mitosis), now merged QMK
+	* [Parts list with suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom)
 
 Schematics can be read, can be imported, displayed and edited with KiCAD. TODO: How to import and save?
 
+Outstanding questions for reversebias:
+* No encryption yet? I'm not seeing any on the code, but maybe it's a header setting in the Nordic files.
+* No pairing with receiver, using the button on the receiver yet, right?
+* How can I change the pairing #s in the code to then recompile and re-flash?
 
 
 ### Physical description
 * The keyboard contains 3 parts: Left keyboard half, right keyboard half, and receiver that plugs into 
 the computer.
+```
++-----+
+|photo|
++-----+
+```
 * The receiver and Pro Micro assembly needs to be connected to the computer USB port via a cable.
 * 23 keys on each half, 46 total.
 * Key columns and rows are staggered for 15 keys per side, although closer to 
@@ -184,7 +195,7 @@ are hard coded.
 
 -----------------------------------------------------------------------------------------
 ## Parts / Bill of materials
-    TODO: INSERT Parts / Bill of materials HERE
+    TODO: INSERT Parts / Bill of materials HERE from separate file.
 
 --------------------------------------------------------------------------------------
 ## Tools and supplies
@@ -295,12 +306,12 @@ Mac software install for the ST-LINK programmer: http://macappstore.org/stlink/
 ```
       ST-LINK V2 pin order                    Receiver pin order
 | ST-LINK V2 |  Use  | Receiver |      | Receiver |  Use  | ST-LINK V2 |
-+-------+------------+----------+      +----------+-------+------------+
++------------+-------+----------+      +----------+-------+------------+
 | Pin-2      | SWCLK | Pin-3    |      | Pin-1    | 3.3V  | Pin-8      |
 | Pin-4      | SWDIO | Pin-2    |      | Pin-2    | SWDIO | Pin-4      |
 | Pin-6      | GND   | Pin-4    |      | Pin-3    | SWCLK | Pin-2      |
 | Pin-8      | 3.3V  | Pin-1    |      | Pin-4    | GND   | Pin-6      |
-+-------+------------+----------+      +----------+-------+------------+
++------------+-------+----------+      +----------+-------+------------+
 ```
 
 --------------------------------------------------------------------------------------
@@ -338,7 +349,7 @@ A: I think it may be worth trying a pair of these
 
 --------------------------------------------------------------------------------------
 ## HW ASSEMBLY / the Build process
-    TODO: INSERT the Build process HERE
+    TODO: INSERT the Build process HERE from separate file.
 
 ### Finishing the neoprene bases
 
@@ -457,10 +468,6 @@ Check for (lack of continuity) across adjacent pins on the wireless modules.
 
 
 
-"?" for reversebias
-* No encryption yet, right?
-* No pairing with receiver button yet, right?
-* How would I change the pairing #s in the code?
 
 
 
