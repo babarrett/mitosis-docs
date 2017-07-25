@@ -307,10 +307,10 @@ Mac software install for the ST-LINK programmer: http://macappstore.org/stlink/
       ST-LINK V2 pin order                    Receiver pin order
 | ST-LINK V2 |  Use  | Receiver |      | Receiver |  Use  | ST-LINK V2 |
 +------------+-------+----------+      +----------+-------+------------+
-| Pin-2      | SWCLK | Pin-3    |      | Pin-1    | 3.3V  | Pin-8      |
-| Pin-4      | SWDIO | Pin-2    |      | Pin-2    | SWDIO | Pin-4      |
-| Pin-6      | GND   | Pin-4    |      | Pin-3    | SWCLK | Pin-2      |
-| Pin-8      | 3.3V  | Pin-1    |      | Pin-4    | GND   | Pin-6      |
+| Pin-2      | SWCLK | Pin-4    |      | Pin-1    | 3.3V  | Pin-8      |
+| Pin-4      | SWDIO | Pin-3    |      | Pin-2    | GND   | Pin-6      |
+| Pin-6      | GND   | Pin-2    |      | Pin-3    | SWDIO | Pin-4      |
+| Pin-8      | 3.3V  | Pin-1    |      | Pin-4    | SWCLK | Pin-2      |
 +------------+-------+----------+      +----------+-------+------------+
 ```
 
