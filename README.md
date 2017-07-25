@@ -12,26 +12,35 @@ this keyboard.
 This is still a work in process. The procedures **have not** been tested. 
 Please use at your own risk, and send me any corrections and clarifications you notice.
 
+At the moment I am collecting feedback on the first two, very important sections
+of it:
+ * Build instructions: mitosis-buildinstructions.md
+ * Parts list: mitosis-partslist.md
+ 
+Please send me comments, or pull requests for changes and improvements.
+ 
+Thank you.
+
 ## Topics
 The topics to be covered are:
-  * Overview
-    * Design goals
-    * Design documents
-    * Physical description
-    * User operation
-    * Background (links, group buys)
-  * Details
-    * Electrical
-    * Software
-    * Firmware
-    * Design??
-  * Parts and Bill of materials
-  * Tools and supplies
-  * Software development (repositories, tools, libraries, installation, use, changing the software)
-  * Hardware development (changing the PCB, future directions)
-  * Future design thoughts
-  * Hardware Assembly (building)
-  * Resources
+* Overview
+	* Design goals
+	* Design documents
+	* Physical description
+	* User operation
+	* Background (links, group buys)
+* Details
+	* Electrical
+	* Software
+	* Firmware
+	* Design??
+* Parts and Bill of materials
+* Tools and supplies
+* Software development (repositories, tools, libraries, installation, use, changing the software)
+* Hardware development (changing the PCB, future directions)
+* Future design thoughts
+* Hardware Assembly (building)
+* Resources
 
 ## Background
 [/u/reverse_bias (reddedit)](https://www.reddit.com/user/reverse_bias) designed and created the 
@@ -45,14 +54,6 @@ on it that I could find, and started documenting it.
 I've read some, but not too much of the code.
 
 Where there was no information available I did my best to make intelegent
-guesses about how thing (most likely) works. Some of the links to resources
+guesses about how a thing (most likely) works. Some of the links to resources
 included I found on the web.
 
-At the moment I am collecting feedback on the first two, very important sections
-of it:
- * Build instructions: mitosis-buildinstructions.md
- * Parts list: mitosis-partslist.md
- 
-Please send me comments, or pull requests for changes and improvements.
- 
-Thank you.
