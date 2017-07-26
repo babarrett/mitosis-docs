@@ -381,7 +381,8 @@ Once the testing is complete...
 
 The neoprene has a tiny bit of give, such that any particles on the desk are
 absorbed, but does not compress when you try and squash it into the desk. It's a
-little tacky which stops it sliding around, and dampens key noise very well.
+little tacky which stops the keyboard from sliding around, and dampens key noise 
+very well.
 
 Run a sharpie along the board edges here, to colour them black to match the
 surfaces.
@@ -392,14 +393,14 @@ clearance for the switch pins and the wireless module. What other keyboard has
 full size MX switches only 1mm from the desk? :)
 
 Remove the adhesive backing, stick down the middle first, lining up the cutout 
-with the central switch, then slowly worked my way towards the edges keeping it centered.
+with the central switch, then slowly work your way towards the edges keeping it centered.
 
 ### Add the keycaps
 
-I bought a 108 key blank PBT set of keycaps. The keyboard only uses 46 1U keys
+reverse_bias bought a set of 108 key blank PBT keycaps. The keyboard only uses 46 1U keys
 though.
 
-Map of the profile I used for each key. Grey keys are what I home on, hence the
+Map of the profile used for each key. Grey keys are what reverse_bias homes on, hence the
 flipped R3 under my thumbs.
 
 
@@ -422,8 +423,6 @@ pretty happy with 50wpm after only 2 months. :)
 I have a basic temperature controlled iron, Hakko 936 clone. The secret
 ingredient is lots of flux, and a youtube search for drag soldering.
 
-Maybe just add "rubber feet" instead of neoprene.
-
 More heat is rarely ever the answer for SMD. If anything, more heat makes the
 flux burn off faster, making your work time shorter. I would say that faster
 applied lower heat is the actual solution here. I generally solder at 300C, with
@@ -435,13 +434,15 @@ identified). A nice thick tip that can get the joint up to 300c in a second,
 with some flux cored solder or liquid flux, and just let surface tension work
 it's magic.
 
+Maybe just add "rubber feet" instead of neoprene.
+
 ### Build problems -- things to watch out for
 
 The resistor array can be oriented any direction
 
-the only way to be sure the nRF51 is soldered on correctly is to put a
-multimeter in continuity mode and start poking adjacent pins. If it beeps, get
-that solder, flux, sucker, and try again.
+The only way to be sure the nRF51 is soldered on correctly is to put a
+multimeter in continuity mode and start poking adjacent pins. If it beeps, you
+have a shorting bridge. Get that solder, flux, sucker, and try again.
 
 --------------------------------------------------------------------------------------
 ## Resources
@@ -483,15 +484,11 @@ OpenOCD site.
 ### Trouble shooting
 As I come across things.
 
-Check for (lack of continuity) across adjacent pins on the wireless modules.
+Check for (lack of) continuity across adjacent pins on the wireless modules.
 
 
 #### Won't Program
 * https://www.reddit.com/r/MechanicalKeyboards/comments/6cken8/help_stuck_in_a_pickle_problems_programming_my/
 * https://www.reddit.com/r/olkb/comments/6pagrd/finished_assembling_my_gherkin_cant_program_it_at/
-
-
-
-
 
 
