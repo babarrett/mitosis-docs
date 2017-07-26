@@ -3,7 +3,8 @@
 This document has been created using available resources on Reddit.com,
 Geekhack.org, and other web sources. The intent is to gather all useful and
 available information to make building and programming the Mitosis wireless
-keyboard as easy as possible, with the greatest chance for success.
+keyboard as easy as possible, with the greatest chance for success for the
+greatest number of builders.
 
 TODO: 
 * Check name and clock speed on Pro Micro
@@ -16,29 +17,30 @@ standby, akin to the battery shelf life.
 --------------------------------------------------------------------------------------
 ## OVERVIEW
 ### Design Goals
-* Open-source design with all schematics, PCB layouts, etc. available
+* Open-source design with all schematics, PCB layouts, software, etc. available
+	* The Nordic Semiconductor license for their SDK is freely available, but not
+open-source.
 * Wireless design
-* Caseless thin form factor (no wrist rests)
-* Both halves of the board communicate wirelessly with the receiver. 
+* Caseless, thin form factor (no wrist rests)
+* Both halves of the board communicate wirelessly (and independently) with the receiver. 
 * Very low power, long battery life
-* Keyboard processor is kept in deep sleep as much as possible.
+* Keyboard processors are kept in deep sleep as much as possible.
   * Use key interrupts to help accomplish this.
   * Scanning a keyboard matrix would mean the processor is on "all the time" so a matrix is not used
   * Each key is, therefore, wired to the processor directly, and no diodes are needed.
 * Small PCB, 10x10cm for reduced production costs in small quantities
 * The same PCBs are used for the left and right side of the keyboard
 * The same PCBs are used as the "plate" for the keyboard
-* low latency
-* the receiver, and therefore keyboard is QMK software compatible≥ Open source.
-* encrypted communication from keyboard to receiver TODO: True? Not done yet?
-* The Mitosis firmware is included in the default QMK firmware set.
+* Low latency
+* the receiver, and therefore keyboard is QMK software compatible, Open-source.
+* (future) encrypted communication from keyboard to receiver
+* The Mitosis firmware is included in the QMK firmware Github repository.
   * intelligent layers 
   * macros
   * handles all the standard QMK functions
 
 ### Design documents: 
 
-TODO: Are these up to date? especially hav reverse\_bias's Github moved into QMK?
 * Main [starter link](https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/) 
 * Design materials
 	* [PCB manufacturing files](https://github.com/reversebias/mitosis-hardware/tree/master/gerbers)
@@ -46,14 +48,15 @@ TODO: Are these up to date? especially hav reverse\_bias's Github moved into QMK
 	* [PDF Schematics](https://github.com/reversebias/mitosis-hardware/tree/master/schematics)
 	* [Lasercutting files](https://github.com/reversebias/mitosis-hardware/tree/master/cnc) (for foam at base of keyboard)
 	* [Wireless firmware](https://github.com/reversebias/mitosis)
-	* [Mitosis QMK source](https://github.com/qmk/qmk_firmware/tree/master/keyboards/mitosis), now merged QMK
 	* [Parts list with suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom)
+
+* QMK repository
+	* [Mitosis QMK source](https://github.com/qmk/qmk_firmware/tree/master/keyboards/mitosis), now merged QMK
 
 Schematics can be read, can be imported, displayed and edited with KiCAD. TODO: How to import and save?
 
 Outstanding questions for reversebias:
 * No encryption yet? I'm not seeing any on the code, but maybe it's a header setting in the Nordic files.
-* No pairing with receiver, using the button on the receiver yet, right?
 * How can I change the pairing #s in the code to then recompile and re-flash?
 
 
@@ -61,15 +64,15 @@ Outstanding questions for reversebias:
 * The keyboard contains 3 parts: Left keyboard half, right keyboard half, and receiver that plugs into 
 the computer.
 ```
-+-----+
-|photo|
-+-----+
+    +-----+
+    |photo|
+    +-----+
 ```
 * The receiver and Pro Micro assembly needs to be connected to the computer USB port via a cable.
 * 23 keys on each half, 46 total.
-* Key columns and rows are staggered for 15 keys per side, although closer to 
+* Key columns and rows are staggered for 15 keys per side, although closer to
 ortholinear then "traditional" keyboards.
-* Ten keys per side (the thumb keys) are arranged in a 2 x 8 ortholinear grid.
+* Ten keys per side (the thumb keys) are arranged in a 2 row x 4 column ortholinear grid.
 * The plate does not support switch top removal.
 * There are 6 "layers" to the keyboard. Starting at the top (key caps) and moving to the desk they are:
 ```
@@ -89,9 +92,8 @@ At the QMK project [glossary](https://github.com/qmk/qmk_firmware/blob/docs/docs
 
 ### User Operation
 Once built and tested, plug in the receiver to a USB cable connected to a USB
-port on the computer and type. 
-There's no need to "wake up" the keyboard halves by pressing a key. The keyboard
-is always on.
+port on the computer and type. There's no need to "wake up" the keyboard halves
+by pressing a key. The keyboard is always on.
 
 Unless you somehow substantially change the design of the keyboard halves there is no need to reprogram the 
 wireless modules on either keyboard half, or the receiver.
@@ -103,7 +105,8 @@ QMK and reprogram the Pro Micro, just like many other keyboards.
 The little + and - icons next to the battery pads refer to the pad on the same
 side rather than indicate the battery orientation.
 
-In the left keyboard half the battery is positive up, and the right, the battery is positive down!
+NOTE: In the left keyboard half the battery is positive up, and the right, the
+battery is positive down!
 
 The CR2032 batteries are not rechargeable.
 
@@ -134,7 +137,8 @@ on Reddit. July 6, 2017. Assembled keyboard in an acrylic case. PCBs modified wi
 * Keyboard:
   * Each keyboard half runs off a single CR2032 (3 volt, lithium) battery
   * There are 4 pins available on a right-angle header between the Plate and PCB
-for reprogramming the keyboard wireless modules
+for reprogramming the keyboard wireless modules. I most cases it is expected
+that this will be unnecessary.
   * One nRF51822 wireless module on each half.
   
 * Receiver module:
@@ -143,11 +147,12 @@ for reprogramming the keyboard wireless modules
   * Receiver interface PCB (attaches between the Pro Micro and a wireless module).
   * The receiver interface PCB has 4 holes (on 0.1" centers) for a header to program the receiver wireless module.
   * The receiver module is powered by the USB port.
-  * The receiver interface PCB has space for a button to reset the Pro Micro and reprogram, 
-more space for a button for the wireless module to initiate pairing, and a place
-for an RGB LED for signalling.
-  * On the Pro Micro there are 12 unused pins.
-  * On the receiver wireless module there are 23 pins are available. See [schematics](http://imgur.com/DWFeZvP).
+  * The USB port is used to load new keymaps and QMK software into the receiver.
+  * The receiver interface PCB has space for a button to reset the Pro Micro and reprogram. Implemented.
+	* The receiver interface PCB has another space for a button to initiate pairing with the wireless modules. Unimplemented.)
+	* The receiver interface PCB has a place for an RGB LED for signalling. The
+current code uses this as a layer indicator. Main layer=off, Function=blue,
+Shifted=red, Function+Shifted=green. This is set/adjustable in the keymap.c file.
 
 ### Software details
 The wireless firmware in the 2 keyboard halves is nearly identical, but different (The firmware program "knows" 
@@ -159,8 +164,8 @@ protocol called Gazell, which supports all the frequency hopping for
 coexistence, pairing and encryption benefits of Bluetooth while allowing for a
 no-compromise split design. 
 
-The keyboard just waits in low power sleep state until a switch is
-depressed, or released. It consumes around 3uA in standby, which would 
+The keyboard waits in low power sleep state until a switch is
+depressed. It consumes around 3uA in standby, which would 
 give 7.5 years standby life out of a standard CR2032. In reality though, 
 batteries have an internal self discharge which limits their life.
 
@@ -171,10 +176,10 @@ based QMK keyboard, but the nRF51822 on the receiver wireless needs to be
 programmed with the ST LINK V2 programmer, like the keyboard halves.
 
 As all the wireless functionality is handled by the wireless module firmware.
-The Pro Micro is compatible with QMK using only a custom matrix.c file.
+The Pro Micro is compatible with QMK by replacing the standard matrix.c file with a custom one.
 
 The Pro Micro has a bootloader, BUT to enter it one has to short GND and RST two
-times (tough one can solder a button to it, which is pictured in the build
+times (though one can solder a button to it, which is pictured in the build
 thread.)
 
 If the Pro Micro comes with a bootloader, you can program it over USB, without
@@ -240,23 +245,22 @@ The file that describes the key mapping (where each key is) and function (what
 each key does) is here: qmk_firmware/keyboards/mitosis/keymap.c That file also
 defines the behavior of the RGB LED on the receiver module.
 
+Note that this repository does **not** include the code for the wireless modules.
+
 
 --------------------------------------------------------------------------------------
 ## SOFTWARE DEVELOPMENT nRF51822 Wireless Modules
 
-(reverse_bias) I'll set up a git repo that you can clone into
-the extracted Nordic SDK, and then build from there. But I'll also upload some
-.hex files if you don't need to modify the wireless. I think most people only
-want keymap changes anyway.
+(reverse_bias) set up a git repo that you can clone into the extracted
+Nordic SDK, and then build from there. He also uploaded some .hex files to use
+if you don't need to modify the wireless. Most people probably only want keymap
+changes anyway.
+
+TODO: more explanation.
 
 ### nRF51822 wireless module software
 There are three "nRF51822 wireless modules" in the system, one on each keyboard half, 
 and one on the receiver. Each of these modules has it's own firmware. 
-
-(reverse_bias) I'll set up a git repo that you can clone into
-the extracted Nordic SDK, and then build from there. But I'll also upload some
-.hex files if you don't need to modify the wireless. I think most people only
-want keymap changes anyway.
 
 reverse_bias: I program/debug with a ST-LINK V2 and OpenOCD.
 
@@ -268,7 +272,7 @@ this.)
 Looks like there are macOS programs that will program via the ST-LINK V2 also.
 Mac software install for the ST-LINK programmer: http://macappstore.org/stlink/
 
-  (brew install stlink)
+(brew install stlink)
 
 
 
@@ -303,6 +307,8 @@ Mac software install for the ST-LINK programmer: http://macappstore.org/stlink/
   * reverse_bias for wireless code.
   * Nordic
 
+Same cable pinouts for keyboard and receiver. Note, however, that the keyboard
+pin-1 is always closest to your body. 
 ```
       ST-LINK V2 pin order                    Receiver pin order
 | ST-LINK V2 |  Use  | Receiver |      | Receiver |  Use  | ST-LINK V2 |
@@ -322,25 +328,40 @@ TODO: Complete with KiCAD or similar.
 -------------------------------------------
 ## Future design thoughts
 
+Q: Can you "pair" the receiver to the keyboard halves?
+
+A: That's the plan, there is a button location on the receiver labeled "P" for
+this purpose. At the moment (July 2017) there is no code operating behind that
+button to initiate pairing.
+
 Q: Is it possible to add a wireless numpad? Using PIPE_NUMBER=2? 
 How many devices can run at the same time with the receiver?
 
 A: The only limitation to the number of devices is the Gazell limit of 8. Adding
 another wireless keyboard will require simple changes to the wireless module
-firmware. PIPE_NUMBER=0, and 1 are already in use. You will also need to have
+firmware. PIPE_NUMBER=0, and 1 are already in use for the keyboard halves. You will also need to have
 the ProMicro expect these new pipe communications, and expand it's mental map of
 those new key positions. We're only starting with 46 keys, so adding 2 more wireless 
 units would bring the total to 96 keys. Easily done.
-  
-Q: Is it possible to add more keys or columns (with a redesigned PCB)?
 
-A: Yes, though some software changes would be required too. reverse_bias says: I
-would say that 29 is trivially easy, 31 is possible if I make a version of the
-software that doesn't use the LF crystal. 26-27 would be around the practical
-limit for a reversible design like Mitosis. ergomacro notes that adding 1 more
-key (24) looks trivial in the software. We're already sending 3 bytes (23 bits)
-to represent the state of the keys. 24 keys would still fit in 3 bytes. Going
-beyond that requires a fourth byte for the extra keys. Still, not a lot of work.
+Q: Is there any more expansion capability available with the keyboard or receiver 
+processors? Is it possible to add more keys or columns (with a redesigned PCB)?
+
+A: (Receiver) On the Pro Micro, according to the schematic, there are 12 unused
+pins. Likewise on the receiver wireless module there are 23 pins are available.
+See [schematics](http://imgur.com/DWFeZvP). Adding keys to the Receiver would 
+complicate the software, and likely require a new, larger receiver PCB.
+
+A: (Keyboards) On the keyboard wireless modules the options are:
+* 1 pin for a key, with almost no change to the send/receive software
+* Any keyboards with > 24 keys would require sending 4 bytes instead of the
+current 3. (Currently sending 23 bits, 3 bytes to represent the state of the
+keys.) Not a big or hard change.
+* 3 to 4 pins (26-27 total keys) are available, if you want to keep the design
+reversible.
+* Up to 8 pins (31 keys) could be possible with a new version of the software
+that doesn't use the LF crystal.
+
 
 Q: Any ideas about "tenting?"
 
