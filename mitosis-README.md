@@ -307,8 +307,7 @@ Mac software install for the ST-LINK programmer: http://macappstore.org/stlink/
   * reverse_bias for wireless code.
   * Nordic
 
-Same cable pinouts for keyboard and receiver. Note, however, that the keyboard
-pin-1 is always closest to your body. 
+Same cable pinouts for keyboard and receiver. 
 ```
       ST-LINK V2 pin order                    Receiver pin order
 | ST-LINK V2 |  Use  | Receiver |      | Receiver |  Use  | ST-LINK V2 |
@@ -319,6 +318,10 @@ pin-1 is always closest to your body.
 | Pin-8      | 3.3V  | Pin-1    |      | Pin-4    | SWCLK | Pin-2      |
 +------------+-------+----------+      +----------+-------+------------+
 ```
+
+So, the pinouts in "normal typing position" look like this. Note that the keyboard
+pin-1 is always closest to your body. 
+![alt text](https://github.com/babarrett/mitosis-docs/blob/master/images/Mitosis%20flashing%20pins.png)
 
 --------------------------------------------------------------------------------------
 ## HW DEVELOPMENT
