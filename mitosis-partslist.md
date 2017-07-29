@@ -1,20 +1,5 @@
 ## Parts / Bill of materials
 
-* Keyboard halves
-	* 4 Mitosis Keyboard PCBs (2 for plates, 2 for PCB)
-	* 2 nRF51822 wireless module (Contains a Nordic Semiconductor
-	51822-QFAC1-1513AN SOC chip). It appears that these are single-sourced
-	though [Waveshare](http://www.waveshare.com/core51822-b.htm) $7ea + $3 shipping, direct or $11 on Amazon.
-	* 2 reverse polarity protection MOS FET (SI2302)
-	* 2 CR2032 batteries
-	* 2 x 4-pin Right angle 0.1" headers
-	* 4 x 1-pin Straight 0.1" headers -- Used on either side of each battery
-	* an (optional, very low priority) LED can be added to existing pads on the
-	keyboard halves. It could be used to aid debugging new wireless code. The
-	orientation, values, and placement of these parts are not known. TODO: Determine.
-	  * 1 single, LED SMD.
-	  * 1 single, resistor SMD.
-
 * Receiver module
 	* 1 Receiver Interface PCB, OSHPark or other PCB house.
 	* 1 Pro Micro controller. Leonardo Pro Micro ATmega32U4 5V/16MHz. Replaces ATmega328 Arduino Pro Mini
@@ -26,6 +11,20 @@
 	* 4 (optional) Right angle 0.1" header. 4 pins. Used for programming the wireless module on the receiver
 	* 1 (optional) LED RGB diffused 4PLCC SMD. Looks like CLVBA-FKA-CAEDH8BBB7A363 or CLVBA-FKA-CA1D181BB7R3R3
 should work fine. TODO: Verify
+
+* Keyboard halves
+	* 4 Mitosis Keyboard PCBs (2 for plates, 2 for PCB)
+	* 2 nRF51822 wireless module (Contains a Nordic Semiconductor
+	51822-QFAC1-1513AN SOC chip). It appears that these are single-sourced
+	though [Waveshare](http://www.waveshare.com/core51822-b.htm) $7ea + $3 shipping, direct or $11 on Amazon.
+	* 2 reverse polarity protection MOS FET (SI2302)
+	* 2 CR2032 batteries
+	* 2 x 4-pin Right angle 0.1" headers
+	* 4 x 1-pin Straight 0.1" headers -- Used on either side of each battery
+	* an (optional, low priority) LED can be added to existing pads on the
+keyboard halves. It could be used to aid debugging new wireless code.
+	  * 1 single, LED SMD.
+	  * 1 single, 3.3k resistor SMD.
 
 * Keycaps
 
