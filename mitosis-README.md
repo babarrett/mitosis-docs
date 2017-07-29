@@ -320,7 +320,7 @@ Same cable pinouts for keyboard and receiver.
 ```
 
 So, the pinouts in "normal typing position" look like this. Note that the keyboard
-pin-1 is always closest to your body. 
+pin-1 is always closest to your body. The colors of your cable may be different.
 ![alt text](https://github.com/babarrett/mitosis-docs/blob/master/images/Mitosis%20flashing%20pins.png)
 
 --------------------------------------------------------------------------------------
