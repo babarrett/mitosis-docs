@@ -23,8 +23,8 @@ should work fine. TODO: Verify
 	* 4 x 1-pin Straight 0.1" headers -- Used on either side of each battery
 	* an (optional, low priority) LED can be added to existing pads on the
 keyboard halves. It could be used to aid debugging new wireless code.
-	  * 1 single, LED SMD.
-	  * 1 single, 3.3k resistor SMD.
+	  * 1 single, LED 0603 SMD.
+	  * 1 single, 3.3k resistor 0603 SMD.
 
 * Keycaps
 
