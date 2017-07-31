@@ -261,9 +261,10 @@ Insert two (2) straight headers, one on each side of the battery, long end up.
 Gently lower the PCB (wireless module side up) onto the switches and two header
 pins. Make sure the switches and their leeds are fully inserted.
 
-Once the boards were properly pressed together, solder the switches in.
+Once the boards were properly pressed together, solder the switches in. Start
+with the corner switches, for alignment.
 
-Solder the header pins on either side of the battery:
+#### Solder the header pins on either side of the battery:
 * first, cut the top of the header pine flush with the top (plate) board.
 * next, solder the top of the battery stabilizers to the plate.
 * then turn the keyboard over. Insert a battery between the PCBs and squeeze the

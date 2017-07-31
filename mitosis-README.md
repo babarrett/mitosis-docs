@@ -450,7 +450,8 @@ have a shorting bridge. Get that solder, flux, sucker, and try again.
 TODO: Include every link in the doc?
 
 * reverse bias's [list of suppliers](https://github.com/reversebias/mitosis-hardware/tree/master/bom).
-* The receiver interface PCB can be made by OSHpark.
+* The receiver interface PCB has been made by OSHpark.com. I ordered 3 boards
+July 2017. $5.40 for all 3. Just uploaded the receiver.zip file from reverse\_bias' github.
 * The processor on the "wireless module" card is from 
 [Nordic Semiconductor](https://www.nordicsemi.com/eng/Products/Bluetooth-low-energy/nRF51822)
 * Nordic Semiconductor also has an SDK and libraries you can compile into your wireless module. 
