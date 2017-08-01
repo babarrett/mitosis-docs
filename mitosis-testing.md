@@ -86,7 +86,7 @@ respond correctly. If so, we're done. If not it's time to trouble-shoot the syst
     * Blink on wireless send
     * Blink on int
     * LED ON when awake, off when in deep sleep
-    * LED lights for 0.25 sec when map pf pressed keys changes
+    * LED lights for 0.25 sec when map of pressed keys changes
 3. Allow interrupts only on three keys: 1,6,11. The rest of the software is
 normal so pressing any of these gets through. These are all "normal" displayable
 keys. (A-Z).
@@ -96,7 +96,98 @@ Only enable int on 3 keys: 1,11,21. See if others are making constant interrupts
 
 
 
-On "start up" (if we can tell) send state of all keys, then send all zeros so we
-know what's stuck, if any.
-For debug don't send wireless more than every 1/2 second.
-More robust code. Switch to poll if stuck or const int's
+
+
+
+## Test code design
+
+#### Keyboard communication to the receiver
+
+The keyboard (half) will start out in testing mode. It will send 3 bytes of data
+at a time to the receiver, with the bit for switch 24 (unused). 
+
+We'll start with 6 tests, from easiest to pass to hardest. More tests can be
+added later. The tests are described in the following message table.
+
+The format of the 3-byte messages are:
+```
+    m## - A message number string to display
+    k## - A key number (01 to 23) to display
+```
+The receiver (Pro Micro) outputs the result of each message to the HID system,
+and you can use HID-listener to watch them.
+
+The "m" messages are looked up in a table and the actual string (given below) is
+displayed to the HID.
+
+Messages from keyboard to Receiver:
+```
+m01 -  Version info + "Please do not press any keys yet.\nRunning tests without INTs."
+  ==== test #1 ====
+m03 - Keys that seem to be down, stuck...
+kxx - List of key numbers, in this case 01-23 that are pressed.
+  -or-
+m09 - "None" [sucess]
+
+  ==== test #2 ====
+m12 - You have 8 seconds to press every key, once...
+m13 - 8
+m14 - 6
+m15 - 4
+m16 - 2
+m17 - 0
+m20 - Keys recorded as pressed...
+kxx - List of key numbers, in this case 01-23 (we hope) that were pressed.
+  -or-
+m09 - "None"
+
+  ==== test #3 ====
+m25 - Interrupts enabled for keys...
+  - Enable for some keys that are NOT stuck down. Example: 1,6,11.
+k01
+k06
+k11
+  - wait 2 seconds, accomulating keypresses -
+m06 - Keys that seem to be down, stuck...
+kxx - List of key numbers, in this case 01,06,11 or none that are pressed.
+  -or-
+m09 - "None" [success]
+
+  ==== test #4 ====
+m40 - You have 4 seconds to press *those 3 keys*, once...
+k01
+k06
+k11
+m15 - 4
+m16 - 2
+m17 - 0
+m20 - Keys recorded as pressed...
+kxx - Key numbers, in this case 01,06,11 that were pressed.
+  -or-
+m09 - "None"
+
+  ==== test #5 ====
+
+m25 - Interrupts enabled for keys...
+m12 - You have 8 seconds to press every key, once...
+m13 - 8
+m14 - 6
+m15 - 4
+m16 - 2
+m17 - 0
+m20 - Keys recorded as pressed...
+kxx - List of key numbers, in this case 01-23 (we hope) that were pressed.
+  -or-
+m09 - "None" [success]
+
+  ==== test #6 ====
+m25 - Interrupts enabled for keys...
+m60 - We will now display the key-down, and key-up events for the next XX keys pressed.
+kxx
+m62 - down
+kxx
+m63 - UP
+
+  ==== done ====
+m65 - Testing complete. Switching to production keyboard software.
+```
