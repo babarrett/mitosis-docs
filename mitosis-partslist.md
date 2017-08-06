@@ -2,7 +2,14 @@
 
 * Receiver module
 	* 1 Receiver Interface PCB, OSHPark or other PCB house.
-	* 1 Pro Micro controller. Leonardo Pro Micro ATmega32U4 5V/16MHz. Replaces ATmega328 Arduino Pro Mini
+	* 1 Pro Micro controller. Leonardo Pro Micro ATmega32U4. Replaces ATmega328 Arduino Pro Mini
+	  * 5V/16MHz
+	  * ATmega32U4 CPU
+	  * 12 digital I/O pins (5 have PWM capable)
+	  * 4 analog inputs
+	  * 32 kB flash
+	  * 2.5 kB RAM
+	  * Micro USB B (?) connector
 	* 1 nRF51822 wireless module (see keyboard halves list for full details)
 	* 12 Straight 0.1" headers (2 x 6 pins) to connect receiver PCB to Pro Micro
 	* 1 1117 3.3v regulator in SOT223
@@ -50,8 +57,8 @@ keyboard halves. It could be used to aid debugging new wireless code.
 
 
 ### Parts warnings:
-There are two versions of the nRF51 board black (wrong) and blue (right). The
-green board doesn't physically match the PCB footprint. The correct dimensions
+There are two versions of the nRF51 board black (wrong) and blue (correct). The
+black board doesn't physically match the PCB footprint. The correct dimensions
 are: 17.0mm x 20.8mm. The bad dimensions are: 15.09mm x 20.07mm.
 
 The angled headers one builder ordered have a couple of mm between the 90 degree angle and
@@ -59,7 +66,7 @@ the plastic piece. When he cut these flush with the board, the remaining pin
 length was too short to connect the ST-Link wires to. His fix for this was to
 pull the plastic part off since the solder is strong enough to hold the pins in
 place. It would be better to get an angle header that has the plastic closer to
-the bend (but that would make soldering them from the top harder)
+the bend (but that would make soldering them from the top harder).
 
 --------------------------------------------------------------------------------------
 ## Tools, ancillary materials required
