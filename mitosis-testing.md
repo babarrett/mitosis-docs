@@ -1,24 +1,26 @@
 ## Mitosis Testing Methods
 
-STATUS: Still very early.
+STATUS: Still very early. Working on the test to run and design.
 
 ### Units to test
 
-* Receiver unit
+#### Receiver unit
   * **Pre-assembly and flashing the Pro Micro**
-  * Pro Micro, USB: Plug into USB cable, recognized by OS?
-  * Pro Micro, flashing with QMK works?
+  * Pro Micro, USB: Plug into USB cable, recognized flashing software?
+  * Pro Micro, flash with QMK works?
+  * Pro Micro, USB: Plug into USB cable, recognized by OS as a keyboard?
   * **After components are assembled on to receiver PCB**
   * Check the continuity between the wireless module and the 4-pin header on the PCB.
+    * wireless module pin-12 = VCC = header pin-1
+    * wireless module pin-31 = SWDIO = header pin-2
+    * wireless module pin-32 = SWCLK = header pin-3
+    * wireless module pin-1 & pin-11 = GND = header pin-4
   * Wireless module, initial tests can be done without The Pro Micro, just
 attach the wireless module to the receiver PCB.
   * Double-check ST_LINK V2 cable connection (in the right order, making contact) to wireless modual
   * Wireless module, flashing using OpenOCD works?
-  * **After the preceding checks out**
-  * Pro Micro, receives messages (serial) from wireless module? (requires test SW for wireless)
-  * Wireless module, receives broadcast from keyboard wireless module?
 
-* Keyboard units
+#### Keyboard units
   * **Pre-assembly**
   * Switch continuity, for + side of switches
   * Switch continuity, for GND side
@@ -35,7 +37,7 @@ continuity to pins: 32, 31, 1, 12
   * **After the preceding checks out**
   * Remove the ST-LINK connection
 
-* Integration testing
+#### Integration testing
   * With the units all having been tested individually it is time to do the system testing.
   1. Flash the left keyboard half with the production file for the left half.
   2. Flash the right keyboard half with the production file for that half.
@@ -45,8 +47,13 @@ In the left keyboard half the battery is positive up, and the right half, the
 battery is positive down.
   * Plug the receiver unit into the computer (cable), see if all the keys
 respond correctly. If so, we're done. If not it's time to trouble-shoot the system.
+
+#### Trouble-shoot the System
   * Wireless module, sends broadcast from keyboard to receiver wireless module?
-* Constant interrupts happening?
+  * Constant interrupts happening?
+  * **After the preceding checks out**
+  * Pro Micro, receives messages (serial) from wireless module? (requires test SW for wireless)
+  * Wireless module, receives broadcast from keyboard wireless module?
 
 
 ### Keyboard testing details
@@ -103,58 +110,73 @@ Only enable int on 3 keys: 1,11,21. See if others are making constant interrupts
 
 #### Keyboard communication to the receiver
 
-The keyboard (half) will start out in testing mode. It will send 3 bytes of data
-at a time to the receiver, with the bit for switch 24 (unused). 
+The keyboard (each half) will start out in testing mode. It will send 3 bytes of
+data at a time to the receiver, with the bit for switch 24 (unused) set. Only if
+that bit is set will the receiver treat this as test results.
 
-We'll start with 6 tests, from easiest to pass to hardest. More tests can be
-added later. The tests are described in the following message table.
+We'll start with 6 tests, from easiest to pass to hardest. All 6 tests should
+fit fine in a single hex file. More tests can be added later. The tests are
+described in the following message table.
 
 The format of the 3-byte messages are:
 ```
-    m## - A message number string to display
-    k## - A key number (01 to 23) to display
+    0x800000 || m## - A message number string to display
+    0x800000 || k## - A key number (01 to 23) to display
+    0x800000 || k99 - End of a list of keys
+    0x800000 || vHH - Keyboard sowtware version number (0xHHHH) to display
+    0x800000 || _## - Key ## (01-23) pressed
+    0x800000 || T## - Key ## (01-23) released
 ```
 The receiver (Pro Micro) outputs the result of each message to the HID system,
-and you can use HID-listener to watch them.
+and you can use HID-listener to watch the messages.
 
 The "m" messages are looked up in a table and the actual string (given below) is
 displayed to the HID.
 
+Receiver-only message:
+```
+m01 -  Receiver Version info + "\nDo not press any keys yet.\nRunning tests without INTs."
+```
 Messages from keyboard to Receiver:
 ```
-m01 -  Version info + "Please do not press any keys yet.\nRunning tests without INTs."
-  ==== test #1 ====
+vHH - Keyboard sowtware version number (0xHHHH) to display.
+        Receiver will output to HID: Keyboard software version: 0000 to FFFF
+  ==== test #1 ==== Stuck keys without any typing. No sleeping, no interrupts.
 m03 - Keys that seem to be down, stuck...
-kxx - List of key numbers, in this case 01-23 that are pressed.
+kxx - One message per key number forming a list of key numbers, in this case 01-23 
+        (decimal) that are pressed. 
+        An example could be:
+        01 03 06 22\n
   -or-
 m09 - "None" [sucess]
 
-  ==== test #2 ====
+  ==== test #2 ==== Keys that do not register, even though typed. No sleeping, no interrupts.
 m12 - You have 8 seconds to press every key, once...
-m13 - 8
+m13 - 8 (These count-down values are printed every 2 seconds
 m14 - 6
 m15 - 4
 m16 - 2
 m17 - 0
 m20 - Keys recorded as pressed...
-kxx - List of key numbers, in this case 01-23 (we hope) that were pressed.
+kxx - One message per key number forming a list of key numbers, in this case 01-23 
+        (decimal) that are pressed. 
+        An example could be (k99 represents end of list):
+        01 03 06 22 99
   -or-
-m09 - "None"
+k99 - (k99 without and kXX before means "none")
 
-  ==== test #3 ====
-m25 - Interrupts enabled for keys...
-  - Enable for some keys that are NOT stuck down. Example: 1,6,11.
-k01
-k06
-k11
+  ==== test #3 ==== Turn interupts on for 3 keys, see if they fire without touching them.
+m25 - Interrupts enabled for 3 keys, 1,6,11.
+  - Enable for some keys that are NOT stuck down.
   - wait 2 seconds, accomulating keypresses -
-m06 - Keys that seem to be down, stuck...
-kxx - List of key numbers, in this case 01,06,11 or none that are pressed.
+m06 - Keys that seem to be down, stuck (key down)...
+        An example could be (k99 represents end of list):
+        01 06 11 99
   -or-
-m09 - "None" [success]
+k99 - (k99 without and kXX before means "none")
 
   ==== test #4 ====
-m40 - You have 4 seconds to press *those 3 keys*, once...
+m40 - You have 4 seconds to press *these 3 keys*, once...
 k01
 k06
 k11
@@ -163,12 +185,24 @@ m16 - 2
 m17 - 0
 m20 - Keys recorded as pressed...
 kxx - Key numbers, in this case 01,06,11 that were pressed.
+        An example could be (k99 represents end of list):
+        01 06 11 99
   -or-
 m09 - "None"
 
-  ==== test #5 ====
+  ==== test #5 ==== All interrupts on. See if any keys get recorded as pressed.
+m25 - Interrupts enabled for all keys...
+    (wait 2 seconds to record/sum pressed keys)
+m03 - Keys that seem to be down, stuck...
+kxx - One message per key number forming a list of key numbers, in this case 01-23 
+        (decimal) that are pressed. 
+        An example could be:
+        01 03 06 22\n
+  -or-
+m09 - "None" [success]
 
-m25 - Interrupts enabled for keys...
+  ==== test #6 ==== All interrupts on. See if all keys get recorded as pressed.
+m25 - Interrupts enabled for all keys...
 m12 - You have 8 seconds to press every key, once...
 m13 - 8
 m14 - 6
@@ -180,13 +214,16 @@ kxx - List of key numbers, in this case 01-23 (we hope) that were pressed.
   -or-
 m09 - "None" [success]
 
-  ==== test #6 ====
+  ==== test #7 ==== Show key transactions for next XX keys pressed
 m25 - Interrupts enabled for keys...
 m60 - We will now display the key-down, and key-up events for the next XX keys pressed.
-kxx
-m62 - down
-kxx
-m63 - UP
+_##
+T##
+_##
+T##
+_##
+T##
+ :
 
   ==== done ====
 m65 - Testing complete. Switching to production keyboard software.
