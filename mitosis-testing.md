@@ -17,7 +17,7 @@ STATUS: Still very early. Working on the test to run and design.
     * wireless module pin-1 & pin-11 = GND = header pin-4
   * Wireless module, initial tests can be done without The Pro Micro, just
 attach the wireless module to the receiver PCB.
-  * Double-check ST_LINK V2 cable connection (in the right order, making contact) to wireless modual
+  * Double-check ST_LINK V2 cable connection (in the right order, making contact) to wireless module
   * Wireless module, flashing using OpenOCD works?
 
 #### Keyboard units
@@ -99,9 +99,6 @@ normal so pressing any of these gets through. These are all "normal" displayable
 keys. (A-Z).
 
 Only enable int on 3 keys: 1,11,21. See if others are making constant interrupts.
-
-
-
 
 
 

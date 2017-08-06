@@ -53,7 +53,7 @@ on it that I could find, and started documenting it.
 
 I've read some, but not too much of the code.
 
-Where there was no information available I did my best to make intelegent
+Where there was no information available I did my best to make intelligent
 guesses about how a thing (most likely) works. Some of the links to resources
 included I found on the web.
 
