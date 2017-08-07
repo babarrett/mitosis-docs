@@ -66,6 +66,9 @@ module itself. Note that the hole with the square hole is "pin-1" of the
 connector. Also note that you'll always have easy access to this part of the
 board, so you can easily add it later. Lastly, you could leave this off and 
 connect it, when needed, by holding pins on the programmer to the plated holes.
+
+
+**WARNING: Some identical looking ST-LINK V2 programers have their pins in different orders!**
 ```
 | Value | ST-LINK V2 | Receiver |
 +-------+------------+----------+

@@ -308,15 +308,17 @@ Mac software install for the ST-LINK programmer: http://macappstore.org/stlink/
   * Nordic
 
 Same cable pinouts for keyboard and receiver. 
+
+**WARNING: Some identical looking ST-LINK V2 programers have their pins in different orders!**
 ```
-      ST-LINK V2 pin order                    Receiver pin order
-| ST-LINK V2 |  Use  | Receiver |      | Receiver |  Use  | ST-LINK V2 |
-+------------+-------+----------+      +----------+-------+------------+
-| Pin-2      | SWCLK | Pin-4    |      | Pin-1    | 3.3V  | Pin-8      |
-| Pin-4      | SWDIO | Pin-3    |      | Pin-2    | GND   | Pin-6      |
-| Pin-6      | GND   | Pin-2    |      | Pin-3    | SWDIO | Pin-4      |
-| Pin-8      | 3.3V  | Pin-1    |      | Pin-4    | SWCLK | Pin-2      |
-+------------+-------+----------+      +----------+-------+------------+
+           Receiver pin order
+    | Receiver |  Use  | ST-LINK V2 |
+    +----------+-------+------------+
+    | Pin-1    | 3.3V  | Pin-8      |
+    | Pin-2    | GND   | Pin-6      |
+    | Pin-3    | SWDIO | Pin-4      |
+    | Pin-4    | SWCLK | Pin-2      |
+    +----------+-------+------------+
 ```
 
 So, the pinouts in "normal typing position" look like this. Note that the keyboard
