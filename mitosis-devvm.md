@@ -15,9 +15,19 @@ Install ST-LINK V2 programer
 Install OpenOCD programming software
 
 
+Download the N. SDK
+
+
 Git Mitosis repository
     * Make sure length is OK
+    * Try to download the pre-build binary
     
+Get compiler & development tools
+
+Recompile
+    * Try to download the pre-build binary
+
+
 
 
 
