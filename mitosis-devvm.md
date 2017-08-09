@@ -7,7 +7,7 @@ Overview:
     * 30GB HD, dynamic
     * ...
 * Install Ubuntu v16.x
-    * Add Oracle guest-additions
+    * Add Oracle VM VirtualBox Extension Pack
     * 
 Install ST-LINK V2 programer
 
@@ -93,24 +93,6 @@ Start VM
 -------------------------------------------
 
 
----------------------guest-additions----------------------
-(Don't need?)
-get guest additions...
-ssh into guest OS (or run terminal)
-follow these instructions
-
-https://superuser.com/questions/527507/use-ubuntu-server-as-web-server-on-mac-os-x-via-virtualbox/527508#527508
-
-and you can add shared folders to OSX here too.
-
-```
-sudo apt-get update
-sudo apt-get install dkms
-sudo apt-get install virtualbox-guest-additions-iso
-sudo apt-get install build-essential linux-headers-$(uname -r)
-sudo apt-get install virtualbox-ose-guest-x11
-```
-Restart Ubuntu
 -------------------------------------------
 -------------------------------------------
 Connect ST-LINK V2 to 
