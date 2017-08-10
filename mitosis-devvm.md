@@ -30,7 +30,7 @@ Install Ubuntu v16.x into the VM
   * Install Ubuntu
   * Update Ubuntu software
   * Add Oracle VM VirtualBox Extension Pack
-  * 
+  * DO NOT mess with the Software & Updates system setting!
 
 Add the ST-LINK V2 programer to the VM
   * Launch VirtualBox
@@ -54,8 +54,11 @@ selecting and downloading the latest SDK (12.3.0 for me). This ends up in your ~
     unzip nRF5_SDK_12.3.0_d7731ad.zip  -d nRF5_SDK_12
     cd nRF5_SDK_12
 ```
-  * Install OpenOCD and the gcc-arm compiler by going to the terminal and executing:
+  * Install git, OpenOCD and the gcc-arm compiler by going to the terminal and executing:
 ```
+    sudo apt-get update # make packages upto date
+    sudo apt install git
+    git --version # display goit version
     sudo apt install openocd gcc-arm-none-eabi
 ```
   * Edit the Makefile by going to the terminal and executing:
@@ -70,19 +73,37 @@ with:
 ```
     GNU\_INSTALL_ROOT := /usr/
 ```
-  * Clone the Mitosis repository by going to the terminal and executing:
+  * Clone reversebias' Mitosis git repository by going to the terminal and executing:
 ```
     cd ~/nRF5_SDK_12
     git clone https://github.com/reversebias/mitosis
 ```
-  * Install udev rules:
+  * Install udev rules (copy from get to the /etc directory):
 ```
     sudo cp mitosis/49-stlinkv2.rules /etc/udev/rules.d/
 ```
-  * Plug in, or replug in the programmer.
+  * Plug in, or replug in the programmer. (should light up!)
+-------------------------------------------
+The programming header on the side of the keyboard, from top to bottom:
 
-    
-    
+    SWCLK
+    SWDIO
+    GND
+    3.3V
+
+It's best to remove the battery during long sessions of debugging, as charging non-rechargeable lithium batteries isn't recommended.
+
+Launch a debugging session with:
+```
+    cd ~/nRF5\_SDK\_12
+    openocd -f mitosis/nrf-stlinkv2.cfg
+```
+Should give you an output ending in:
+```
+    Info : nrf51.cpu: hardware has 4 breakpoints, 2 watchpoints
+```
+
+Otherwise you likely have a loose or wrong wire.
 -------------------------------------------
 
     
