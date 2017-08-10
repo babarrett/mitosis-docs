@@ -8,7 +8,7 @@ This document is in it's infancy. Incomplete, untested, and unreliable.
   * Mitosis - A 2-piece wireless, programable (QMK), keyboard that communicates to a wireless "dongle" plugged into a USB port.
   * VM - Virtual machine
   * Host system (or simply host) - 
-    
+  * ...
 
 ## Overview:
 * Install VirtualBox
@@ -22,17 +22,18 @@ This document is in it's infancy. Incomplete, untested, and unreliable.
   * Password: my easy os
   * 2GB RAM
   * 30GB HD, dynamic
+  * 64-bit OS
   * ...
 
-Install Ubuntu v16.x into the VM
-  * go to https://www.ubuntu.com/download/desktop and download
-  * mount the ISO image on he guest VM's CD drive
+* Install Ubuntu v16.x into the VM
+  * go to https://www.ubuntu.com/download/desktop and download the v16.x ISO file.
   * Install Ubuntu
-  * Update Ubuntu software
-  * Add Oracle VM VirtualBox Extension Pack
   * DO NOT mess with the Software & Updates system setting!
+  * **Use the System Settings to update Ubuntu to the latest software.** (more)
+  * Install guest additions, see below for instructions.
+  * Add Oracle VM VirtualBox Extension Pack, see below for instructions.
 
-Add the ST-LINK V2 programer to the VM
+* Add the ST-LINK V2 programer to the VM
   * Launch VirtualBox
   * Select your VM
   * Select Settings
@@ -104,9 +105,10 @@ Should give you an output ending in:
 ```
 
 Otherwise you likely have a loose or wrong wire.
--------------------------------------------
 
-    
+-------------------------------------------
+Some is Obsolete(?) below here. Others need to be incorporated.
+-------------------------------------------
     
     
   * Download from within the Linux VM
@@ -140,6 +142,7 @@ Recompile
 
 
 Install VirtualBox
+
     * https://www.virtualbox.org/wiki/Downloads
     * Version 5.1.26
     * (I'm using the macOS version, any there should work the same. Use the one that will run on your computer.)
@@ -149,10 +152,12 @@ Install VirtualBox
         * the installer runs...I selected "Install for all users...; the default installation
 
 Get a current Ubuntu installer ISO image
+
     * current version is: 16.04.3 LTS
     * go to https://www.ubuntu.com/download/desktop and download
 
 Run and configure VirtualBox
+
     * Run VirtualBox (In Applications folder on macOS)
     * Click "New" near top-left of window.
     * Name your VM as you like. I'll be using "Mitosis-Dev-Ubuntu_v16"
@@ -186,37 +191,43 @@ Run and configure VirtualBox
 
 -------------------------------------------
 
-## Install the extension pack with the same version as your installed version of VirtualBox!
-Oracle VM VirtualBox Extension Pack
-From: https://www.youtube.com/watch?v=mwKmxxRbvws
+## Guest additions
 
-    * https://www.virtualbox.org/wiki/Downloads
-    * Select: VirtualBox 5.1.26 Oracle VM VirtualBox Extension Pack
-        * Download: All supported platforms
-        * The file downloaded is, for example: Oracle_VM_VirtualBox_Extension_Pack-5.1.26-117224.vbox-extpack
-    * Run VirtualBox
-    * Make sure no VMs are running
-    * Select Extensions "Tab"
-    * To the right of the "Extensions Packages" list, use the "Adds new package" drop-down to add the Extension pack.
-    * A standard open file dialog is presented, navigate to the downloads folder and select and open the downoaded (.vbox-extpack) file.
-    * The dialog informs you the USB 2.0 and USB 3.0 and RDP (Remote desktop) wil be supported.
-    * Click "Install." Scroll to the bottom of the license agreement, click "I Agree."
-    * You may then have to enter your password to start the install.
-    * Select and start your VM.
+Copy/Paste between the hos OS and VM is not by default. You can enable it by installing them, then 
+enabling copy/paste in the settings for your VM.
 
-    * Install Oracle VM VirtualBox Extension pack for Remote Display to work. 
+1. Launch VirtuialBox, start your VM.
+2. Mount the ISO image on the guest VM's CD drive by selecting Devices->Insert Guest Additions CD Image. 
+This popped up a prompt in my VM to install them.
+3.  Once you have installed Guest Additions, then you can enable copy/paste:
+  * Start the VM
+  * Go to Machine > Settings in the file menu.
+  * Go to the General tab, then Advanced.
+  * Set the Shared Clipboard setting to Bidirectional.
+
+-------------------------------------------
+
+## Install the extension pack 
+
+Make sure it is the same version as your installed version of VirtualBox!
+
+Oracle VM VirtualBox Extension Pack instructions available here: https://www.youtube.com/watch?v=mwKmxxRbvws
+
+  * Download from: https://www.virtualbox.org/wiki/Downloads
+  * Select: VirtualBox 5.1.26 Oracle VM VirtualBox Extension Pack
+      * Download: All supported platforms
+      * The file downloaded is, for example: Oracle_VM_VirtualBox_Extension_Pack-5.1.26-117224.vbox-extpack
+  * Run VirtualBox
+  * Make sure no VMs are running
+  * Select Extensions "Tab"
+  * To the right of the "Extensions Packages" list, use the "Adds new package" drop-down to add the Extension pack.
+  * A standard open file dialog is presented, navigate to the downloads folder and select and open the downoaded (.vbox-extpack) file.
+  * The dialog informs you the USB 2.0 and USB 3.0 and RDP (Remote desktop) wil be supported.
+  * Click "Install." Scroll to the bottom of the license agreement, click "I Agree."
+  * You may then have to enter your password to start the install.
+  * Select and start your VM.
+
+  * Install Oracle VM VirtualBox Extension pack for Remote Display to work. 
+
 Start VM
--------------------------------------------
 
-
--------------------------------------------
-Guest additions
-When running the VM, select Devices->Insert Guest Additions CD Image. This popped up a prompt in my VM to install them
-
-Copy/Paste is not by default. If you have installed Guest Additions, then you can do this:
-    Start the VM
-    Go to Machine > Settings in the file menu.
-    Go to the General tab, then Advanced.
-    Set the Shared Clipboard setting to Disabled, Guest to Host, Host to Guest or Bidirectional.
-
--------------------------------------------
