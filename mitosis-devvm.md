@@ -1,31 +1,116 @@
 # Creating a VM for Mitosis Development
 
-Overview:
+## Document Status
+
+This document is in it's infancy. Incomplete, untested, and unreliable.
+
+## Definitions
+  * Mitosis - A 2-piece wireless, programable (QMK), keyboard that communicates to a wireless "dongle" plugged into a USB port.
+  * VM - Virtual machine
+  * Host system (or simply host) - 
+    
+
+## Overview:
 * Install VirtualBox
-* Create a VM
-    * 2GB RAM
-    * 30GB HD, dynamic
-    * ...
-* Install Ubuntu v16.x
-    * Add Oracle VM VirtualBox Extension Pack
-    * 
-Install ST-LINK V2 programer
+  * Download the app for your host system here: https://www.virtualbox.org/wiki/Downloads
+  * Run the installer
+    
+* Within VirtualBox, create a VM
+  * VM Name: MitosisDev
+  * Disk name: mitosisdevhd
+  * User: mitosis
+  * Password: my easy os
+  * 2GB RAM
+  * 30GB HD, dynamic
+  * ...
 
+Install Ubuntu v16.x into the VM
+  * go to https://www.ubuntu.com/download/desktop and download
+  * mount the ISO image on he guest VM's CD drive
+  * Install Ubuntu
+  * Update Ubuntu software
+  * Add Oracle VM VirtualBox Extension Pack
+  * 
 
-Install OpenOCD programming software
+Add the ST-LINK V2 programer to the VM
+  * Launch VirtualBox
+  * Select your VM
+  * Select Settings
+  * Select Ports, and USB
+  * Click the "Add" button on the right
+  * Select the ST-LINK USB device to add that hardware to the VM.
+  * Open the VM, check the USB icon at the bottom of the window to make sure the ST-LINK is attached.
+  
+  
+-------------------------------------------
+Install OpenOCD programming software, Nordic SDK and tool chain. See reversebias README at:
+https://github.com/reversebias/mitosis
 
+Follow the instructions from there, noting the following:
+  * Download the Nordic SDK by using a browser to go to [the Nordic page](https://www.nordicsemi.com/eng/nordic/Products/nRF5-SDK/nRF5-SDK-v12-zip/54291)
+selecting and downloading the latest SDK (12.3.0 for me). This ends up in your ~/Downloads folder.
+  * go to the terminal and execute:
+```
+    unzip nRF5_SDK_12.3.0_d7731ad.zip  -d nRF5_SDK_12
+    cd nRF5_SDK_12
+```
+  * Install OpenOCD and the gcc-arm compiler by going to the terminal and executing:
+```
+    sudo apt install openocd gcc-arm-none-eabi
+```
+  * Edit the Makefile by going to the terminal and executing:
+```
+    gedit ~/nRF5_SDK_12/nRF5_SDK_12.3.0_d7731ad/components/toolchain/gcc/Makefile.posix
+```
+  * Replace something like: 
+```
+    GNU\_INSTALL\_ROOT := /usr/local/gcc-arm-none-eabi-4\_9-2015q1
+```
+with:
+```
+    GNU\_INSTALL_ROOT := /usr/
+```
+  * Clone the Mitosis repository by going to the terminal and executing:
+```
+    cd ~/nRF5_SDK_12
+    git clone https://github.com/reversebias/mitosis
+```
+  * Install udev rules:
+```
+    sudo cp mitosis/49-stlinkv2.rules /etc/udev/rules.d/
+```
+  * Plug in, or replug in the programmer.
+
+    
+    
+-------------------------------------------
+
+    
+    
+    
+  * Download from within the Linux VM
+    * the link to the tarball is on [this page](https://sourceforge.net/projects/openocd/files/openocd/0.9.0/).
+    * find the link here, near the top of the page: Looking for the latest version? 
+[Download openocd-0.10.0.tar.bz2 (4.8 MB)](https://sourceforge.net/projects/openocd/files/latest/download?source=files)
+    * The link (for 0.10.0.tar.bz2) is here: 
+  * Download Linux version from: 
+  * Make a directory: /...
+  * Move to:
+  * Unzip
+    
 
 Download the N. SDK
-
+  * Download from: 
+    
 
 Git Mitosis repository
-    * Make sure length is OK
-    * Try to download the pre-build binary
+  * Make sure length is OK
+  * Try to download the pre-build binary
     
 Get compiler & development tools
 
 Recompile
-    * Try to download the pre-build binary
+  * Try to download the pre-build binary
 
 
 
@@ -104,5 +189,13 @@ Start VM
 
 
 -------------------------------------------
+Guest additions
+When running the VM, select Devices->Insert Guest Additions CD Image. This popped up a prompt in my VM to install them
+
+Copy/Paste is not by default. If you have installed Guest Additions, then you can do this:
+    Start the VM
+    Go to Machine > Settings in the file menu.
+    Go to the General tab, then Advanced.
+    Set the Shared Clipboard setting to Disabled, Guest to Host, Host to Guest or Bidirectional.
+
 -------------------------------------------
-Connect ST-LINK V2 to 
