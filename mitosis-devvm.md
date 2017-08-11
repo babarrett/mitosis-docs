@@ -29,7 +29,7 @@ This document is in it's infancy. Incomplete, untested, and unreliable.
   * go to https://www.ubuntu.com/download/desktop and download the v16.x ISO file.
   * Install Ubuntu
   * DO NOT mess with the Software & Updates system setting!
-  * **Use the System Settings to update Ubuntu to the latest software.** (more)
+  * **Use the System Settings to update Ubuntu to the latest software.** (TODO: more)
   * Install guest additions, see below for instructions.
   * Add Oracle VM VirtualBox Extension Pack, see below for instructions.
 
@@ -44,10 +44,10 @@ This document is in it's infancy. Incomplete, untested, and unreliable.
   
   
 -------------------------------------------
-Install OpenOCD programming software, Nordic SDK and tool chain. See reversebias README at:
-https://github.com/reversebias/mitosis
+Install OpenOCD programming software, Nordic SDK and tool chain. Based off, but with added detail, 
+reversebias README at: https://github.com/reversebias/mitosis
 
-Follow the instructions from there, noting the following:
+Nordic SDK:
   * Download the Nordic SDK by using a browser to go to [the Nordic page](https://www.nordicsemi.com/eng/nordic/Products/nRF5-SDK/nRF5-SDK-v12-zip/54291)
 selecting and downloading the latest SDK (12.3.0 for me). This ends up in your ~/Downloads folder.
   * go to the terminal and execute:
@@ -55,13 +55,15 @@ selecting and downloading the latest SDK (12.3.0 for me). This ends up in your ~
     unzip nRF5_SDK_12.3.0_d7731ad.zip  -d nRF5_SDK_12
     cd nRF5_SDK_12
 ```
+Install the required tool chain utilities:
   * Install git, OpenOCD and the gcc-arm compiler by going to the terminal and executing:
 ```
     sudo apt-get update # make packages upto date
     sudo apt install git
-    git --version # display goit version
+    git --version # display git version
     sudo apt install openocd gcc-arm-none-eabi
 ```
+Update the Nordic makefile (for Linux) to point to TODO: ???
   * Edit the Makefile by going to the terminal and executing:
 ```
     gedit ~/nRF5_SDK_12/nRF5_SDK_12.3.0_d7731ad/components/toolchain/gcc/Makefile.posix
@@ -74,12 +76,13 @@ with:
 ```
     GNU\_INSTALL_ROOT := /usr/
 ```
+Download (clone) reversebias' Mitosis git repository:
   * Clone reversebias' Mitosis git repository by going to the terminal and executing:
 ```
     cd ~/nRF5_SDK_12
     git clone https://github.com/reversebias/mitosis
 ```
-  * Install udev rules (copy from get to the /etc directory):
+  * Install the udev rules (copy from get to the /etc directory):
 ```
     sudo cp mitosis/49-stlinkv2.rules /etc/udev/rules.d/
 ```
@@ -115,7 +118,7 @@ Some is Obsolete(?) below here. Others need to be incorporated.
     * the link to the tarball is on [this page](https://sourceforge.net/projects/openocd/files/openocd/0.9.0/).
     * find the link here, near the top of the page: Looking for the latest version? 
 [Download openocd-0.10.0.tar.bz2 (4.8 MB)](https://sourceforge.net/projects/openocd/files/latest/download?source=files)
-    * The link (for 0.10.0.tar.bz2) is here: 
+	  * The link (for 0.10.0.tar.bz2) is here: 
   * Download Linux version from: 
   * Make a directory: /...
   * Move to:
@@ -184,10 +187,6 @@ Run and configure VirtualBox
     * Enasble all tabs for the UI
     * OK
 
-
-## update Ubuntu software.
-
-(add here)
 
 -------------------------------------------
 
