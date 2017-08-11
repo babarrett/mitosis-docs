@@ -86,28 +86,79 @@ Download (clone) reversebias' Mitosis git repository:
 ```
     sudo cp mitosis/49-stlinkv2.rules /etc/udev/rules.d/
 ```
-  * Plug in, or replug in the programmer. (should light up!)
--------------------------------------------
-The programming header on the side of the keyboard, from top to bottom:
 
-    SWCLK
-    SWDIO
-    GND
-    3.3V
+## Test the ST-LINK configuration and software
 
-It's best to remove the battery during long sessions of debugging, as charging non-rechargeable lithium batteries isn't recommended.
+* Plug in, or replug in the programmer. (should light up!)
+
+  The programming header pins on the side of the keyboard, from top to bottom:
+```
+            SWCLK
+            SWDIO
+            GND
+            3.3V
+```
+
+It's best to remove the battery during long sessions of debugging, as 
+charging non-rechargeable lithium batteries isn't recommended.
 
 Launch a debugging session with:
 ```
-    cd ~/nRF5\_SDK\_12
+    cd ~/nRF5_SDK_12
     openocd -f mitosis/nrf-stlinkv2.cfg
 ```
-Should give you an output ending in:
+Should:
+a. cause the LED on the ST-LINK to illuminate
+b. give you an output ending in:
 ```
     Info : nrf51.cpu: hardware has 4 breakpoints, 2 watchpoints
 ```
-
+If the board is **not plugged in** (or, plugged in wrong) you will instead reveive something like:
+```
+        Open On-Chip Debugger 0.9.0 (2015-09-02-10:42)
+        Licensed under GNU GPL v2
+        For bug reports, read
+                http://openocd.org/doc/doxygen/bugs.html
+        Info : The selected transport took over low-level target control. 
+               The results might differ compared to plain JTAG/SWD
+        adapter speed: 1000 kHz
+        Info : Unable to match requested speed 1000 kHz, using 950 kHz
+        Info : Unable to match requested speed 1000 kHz, using 950 kHz
+        Info : clock speed 950 kHz
+        Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
+        Info : using stlink api v2
+        Info : Target voltage: 3.261457
+        Error: init mode failed (unable to connect to the target)
+        in procedure 'init' 
+        in procedure 'ocd_bouncer'
+```
 Otherwise you likely have a loose or wrong wire.
+
+
+## Development cycle for Wireless Module
+
+### Manual programming
+
+From the factory, these chips need to be erased:
+
+    echo reset halt | telnet localhost 4444
+    echo nrf51 mass_erase | telnet localhost 4444
+
+From there, the precompiled binaries can be loaded:
+
+    echo reset halt | telnet localhost 4444
+    echo flash write_image `readlink -f precompiled-basic-left.hex` | telnet localhost 4444
+    echo reset | telnet localhost 4444
+
+Automatic make and programming scripts
+
+To use the automatic build scripts:
+
+  cd mitosis/mitosis-keyboard-basic
+  ./program.sh
+
+An openocd session should be running in another terminal, as this script sends commands to it.
+
 
 -------------------------------------------
 Some is Obsolete(?) below here. Others need to be incorporated.
