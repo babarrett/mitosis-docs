@@ -15,65 +15,67 @@ It will be updated as I learn more.
 
 ### Download and Install VirtualBox
 
-    * Download the app for your host system here: https://www.virtualbox.org/wiki/Downloads
-    * Version 5.1.26
-    * (I'm using the macOS version, any there should work the same. Use the one that will run on your computer.)
-        * download
-        * open (double-click) the .dmg file
-        * install (double-click) the VirtualBox.pkg file, verifies the package. It will take a little while to start up.
-        * the installer runs...I selected "Install for all users...; the default installation
+* Download the app for your host system here: https://www.virtualbox.org/wiki/Downloads
+* Version 5.1.26
+* (I'm using the macOS version, any there should work the same. Use the one that will run on your computer.)
+    * download
+    * open (double-click) the .dmg file
+    * install (double-click) the VirtualBox.pkg file, verifies the package. It will take a little while to start up.
+    * the installer runs...I selected "Install for all users...; the default installation
 
 ### Run and configure VirtualBox
 
-    * Run VirtualBox (In Applications folder on macOS, or other)
-    * Click "New" near top-left of window.
-    * Name your VM as you like. I'll be using "MitosisDev"
-    * Select "Type: Linux"
-    * Select "Version: Ubuntu (64-bit)", Continue
-    * Select RAM to allocate for the running VM. I'll start with 1542 MB, Continue
-    * Select "Create a virtual hard disk now", Create
-    * Selet "VHD" ("VDI" cannot be imported into other VMs later, if you wanted to.), Continue
-    * Select "Dynamically allocated" (Only uses the disk space it needs.) Continue
-    * Set value for the HD to 30GB, and the default name & location. Create.
-    * Network / Adapter 1: Enable, Attached to NAT
-    * Ports / Serial Ports: Disabled
-    * Ports / USB: Enable; USB 1.1
-    * Plug in your ST-LINK V2 programmer. Click the USB and "+" icon. Select the ST-LINK device to attach the programmer to the VM (when running).
-    * Enasble all tabs for the UI
-    * OK
+* Run VirtualBox (In Applications folder on macOS, or other)
+* Click "New" near top-left of window.
+* Name your VM as you like. I'll be using "MitosisDev"
+* Select "Type: Linux"
+* Select "Version: Ubuntu (64-bit)", Continue
+* Select RAM to allocate for the running VM. I'll start with 1542 MB, Continue
+* Select "Create a virtual hard disk now", Create
+* Selet "VHD" ("VDI" cannot be imported into other VMs later, if you wanted to.), Continue
+* Select "Dynamically allocated" (Only uses the disk space it needs.) Continue
+* Set value for the HD to 30GB, and the default name & location. Create.
+* Network / Adapter 1: Enable, Attached to NAT
+* Ports / Serial Ports: Disabled
+* Ports / USB: Enable; USB 1.1
+* Plug in your ST-LINK V2 programmer. Click the USB and "+" icon. Select the ST-LINK device to attach the programmer to the VM (when running).
+* Enasble all tabs for the UI
+* OK
 
 ### Within VirtualBox, create a VM
-  * VM Name: MitosisDev
-  * Disk name: mitosisdevhd
-  * User: mitosis
-  * Password: my easy os
-  * 2GB RAM
-  * 30GB HD, dynamic
-  * 64-bit OS
-  * ...
+* VM Name: MitosisDev
+* Disk name: mitosisdevhd
+* User: mitosis
+* Password: my easy os
+* 2GB RAM
+* 30GB HD, dynamic
+* 64-bit OS
+* ...
 
 * Install Ubuntu v16.x into the VM
 
 Get a current Ubuntu installer ISO image
 
-  * current version is: 16.04.3 LTS
-  * go to https://www.ubuntu.com/download/desktop and download the v16.x ISO file.
-  * Mount the ISO as a CD-ROM for your new VM
-  * Start up the VM, and boot from the Ubuntu ISO
-  * Install Ubuntu
-  * DO NOT mess with the Software & Updates system setting!
-  * **Use the System Settings to update Ubuntu to the latest software.** (TODO: more)
-  * Install guest additions, see below for instructions.
-  * Add Oracle VM VirtualBox Extension Pack, see below for instructions.
+* current version is: 16.04.3 LTS
+* go to https://www.ubuntu.com/download/desktop and download the v16.x ISO file.
+* Mount the ISO as a CD-ROM for your new VM
+* Start up the VM, and boot from the Ubuntu ISO
+* Install Ubuntu
+* DO NOT mess with the Software & Updates system setting!
+* **Use the System Settings to update Ubuntu to the latest software.** (TODO: more)
+* Install guest additions, see below for instructions.
+* Add Oracle VM VirtualBox Extension Pack, see below for instructions.
 
 ## Add the ST-LINK V2 programer to the Ubuntu VM
-  * Launch VirtualBox
-  * Select your VM
-  * Select Settings
-  * Select Ports, and USB
-  * Click the "Add" button on the right
-  * Select the ST-LINK USB device to add that hardware to the VM.
-  * **EVERYTIME** you open the VM, check the USB icon at the bottom of the window to make sure the ST-LINK is attached. (Checked)
+* Launch VirtualBox
+* Select your VM
+* Select Settings
+* Select Ports, and USB
+* Click the "Add" button on the right
+* Select the ST-LINK USB device to add that hardware to the VM.
+* **EVERYTIME** you open the VM, check the USB icon at the bottom of the window
+to make sure the ST-LINK is attached. (Checked) Or, check it in the VirtualBox
+settings for that VM under: Settings / Ports / USB / USB Device Filters
   
   
 -------------------------------------------
