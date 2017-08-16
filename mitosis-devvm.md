@@ -87,7 +87,10 @@ reversebias README at: https://github.com/reversebias/mitosis
 
 ### Nordic SDK:
 
-* Download the Nordic SDK by using a browser to go to [the Nordic page](https://www.nordicsemi.com/eng/nordic/Products/nRF5-SDK/nRF5-SDK-v12-zip/54291)
+* either download **SDK v11** by going to:
+  [https://developer.nordicsemi.com/nRF5\_SDK/](https://developer.nordicsemi.com/nRF5\_SDK/) or
+* Download the **current** Nordic SDK by using a browser to go to 
+[the Nordic page](https://www.nordicsemi.com/eng/nordic/Products/nRF5-SDK/nRF5-SDK-v12-zip/54291)
 selecting and downloading the latest SDK (12.3.0 for me). This ends up in your ~/Downloads folder.
 * go to the terminal and execute:
 ```
