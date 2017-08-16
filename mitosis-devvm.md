@@ -424,3 +424,54 @@ Oracle VM VirtualBox Extension Pack instructions available here: https://www.you
 
 Start VM
 
+-------------------------------------------
+
+## Updating the ST-LINK V2 firmware
+
+Your ST-LINK V2 firmware could be down-rev. I'm not aware of this causing any problems, but I upgraded mine anyway.
+I have two ST-LINK V2 devices. I left one old and upgraded the other. Both of mine were made in China, and 
+have the pins in this order:
+```
+    +----+--+--+-----+
+    | RST| 1| 2|SWDIO|
+    | GND| 3| 4|GND  |
+    |SWIM| 5| 6|SWCLK|
+    |3.3V| 7| 8|3.3V |
+    |5.0V| 9|10|5.0V |
+    +----+--+--+-----+
+```
+
+
+My firmware is reported by OpenOCD as:
+```
+    Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
+```
+Go to this URL to read about the latest firmware upgrade:
+```
+              http://www.st.com/en/embedded-software/stsw-link007.html
+```
+You will have to provide a valid email address so they can send you a confirmation message.
+Download the .zip file.
+Unzip it.
+
+Follow the readme.txt instructions. 
+
+### macOS
+
+* Open the AllPlatorms folder
+* Right click and open the STLinkUpgrade.jar Java app.
+* You'll get a dialog like this:
+```
+    +-----+
+    |photo|
+    +-----+
+```
+Now the version numbers have now changed:
+```
+    Old:  Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
+    New:  Info : STLINK v2 JTAG v28 API v2 SWIM v7 VID 0x0483 PID 0x3748
+                           ^^^^^^^^        ^^^^^^^
+```
+
+
+
