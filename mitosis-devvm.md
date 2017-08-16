@@ -95,7 +95,46 @@ selecting and downloading the latest SDK (12.3.0 for me). This ends up in your ~
           unzip ~/Downloads/nRF5_SDK_12.3.0_d7731ad.zip  -d nRF5_SDK_12
           cd nRF5_SDK_12
 ```
-For this to compile the directory nRF5_SDK_12 needs to contain:
+If inside the nRF5_SDK_12 directory there is only one directory (nRF5\_SDK\_12.3.0\_d7731ad) copy its
+contents into nRF5_SDK_12, then remove it with:
+```
+          cp nRF5\_SDK\_12.3.0\_d7731ad/* .
+          rm -rf nRF5\_SDK\_12.3.0\_d7731ad
+```
+
+### Install the required tool chain utilities:
+  * Install git, OpenOCD and the gcc-arm compiler by going to the terminal and executing:
+```
+          sudo apt-get update # make packages upto date
+          sudo apt install git
+          git --version # display git version
+          sudo apt install openocd gcc-arm-none-eabi
+```
+Update the Nordic makefile (for Linux) to point to TODO: ???
+  * Edit the Makefile by going to the terminal and executing:
+```
+          gedit ~/nRF5_SDK_12/components/toolchain/gcc/Makefile.posix
+```
+  * Replace something like: 
+```
+          GNU\_INSTALL\_ROOT := /usr/local/gcc-arm-none-eabi-4\_9-2015q1
+```
+with:
+```
+          GNU\_INSTALL\_ROOT := /usr/
+```
+Download (clone) reversebias' Mitosis git repository:
+  * Clone reversebias' Mitosis git repository by going to the terminal and executing:
+```
+          cd ~/nRF5_SDK_12
+          git clone https://github.com/reversebias/mitosis
+```
+  * Install the udev rules (copy from get to the /etc directory):
+```
+          sudo cp mitosis/49-stlinkv2.rules /etc/udev/rules.d/
+```
+For this to compile, the directory ~/nRF5_SDK_12 needs to contain 
+the sub-directory "mitosis" (the clone of the githib mitosis project):
 ```
           .
           ..
@@ -111,38 +150,6 @@ For this to compile the directory nRF5_SDK_12 needs to contain:
           svd
 ```
 
-
-### Install the required tool chain utilities:
-  * Install git, OpenOCD and the gcc-arm compiler by going to the terminal and executing:
-```
-          sudo apt-get update # make packages upto date
-          sudo apt install git
-          git --version # display git version
-          sudo apt install openocd gcc-arm-none-eabi
-```
-Update the Nordic makefile (for Linux) to point to TODO: ???
-  * Edit the Makefile by going to the terminal and executing:
-```
-          gedit ~/nRF5_SDK_12/nRF5_SDK_12.3.0_d7731ad/components/toolchain/gcc/Makefile.posix
-```
-  * Replace something like: 
-```
-          GNU\_INSTALL\_ROOT := /usr/local/gcc-arm-none-eabi-4\_9-2015q1
-```
-with:
-```
-          GNU\_INSTALL_ROOT := /usr/
-```
-Download (clone) reversebias' Mitosis git repository:
-  * Clone reversebias' Mitosis git repository by going to the terminal and executing:
-```
-          cd ~/nRF5_SDK_12
-          git clone https://github.com/reversebias/mitosis
-```
-  * Install the udev rules (copy from get to the /etc directory):
-```
-          sudo cp mitosis/49-stlinkv2.rules /etc/udev/rules.d/
-```
 
 ## Test the ST-LINK configuration and software
 
@@ -164,13 +171,11 @@ Launch a debugging session with:
             cd ~/nRF5_SDK_12
             openocd -f mitosis/nrf-stlinkv2.cfg
 ```
-Should:
+As openocd runs it should:
+
 a. cause the LED on the ST-LINK to illuminate
-b. give you an output ending in:
-```
-            Info : nrf51.cpu: hardware has 4 breakpoints, 2 watchpoints
-```
-If the board is **not plugged in** (or, plugged in wrong) you will instead receive something like:
+
+b. give you output starting with what I'll call the "Standard start-up header":
 ```
         Open On-Chip Debugger 0.9.0 (2015-09-02-10:42)
         Licensed under GNU GPL v2
@@ -182,6 +187,21 @@ If the board is **not plugged in** (or, plugged in wrong) you will instead recei
         Info : Unable to match requested speed 1000 kHz, using 950 kHz
         Info : Unable to match requested speed 1000 kHz, using 950 kHz
         Info : clock speed 950 kHz
+```
+c. If all is going well, the output will end with something like:
+```
+            Info : nrf51.cpu: hardware has 4 breakpoints, 2 watchpoints
+```
+If the TS-LINK **has not been reset** (unplugged, replugged in) lately the display will end with:
+```
+        <Standard start-up header>
+        Error: open failed
+        in procedure: 'init'
+        in procedure: 'ocd_burner'
+```
+If the board is **not plugged in** (or, plugged in wrong) you will instead receive something like:
+```
+        <s>
         Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
         Info : using stlink api v2
         Info : Target voltage: 3.261457
@@ -197,7 +217,7 @@ Otherwise you likely have a loose or wrong wire.
 
 Navigate to cloned mitosis repo and run.
 ```
-          cd TODO: 
+          cd ~/nRF5_SDK_12
           openocd -f mitosis/nrf-stlink.cfg 
 ```
 Expect something similar to the following response.
@@ -305,6 +325,35 @@ To use the automatic build scripts:
           ./program.sh
 
 An **openocd** session should be running in another terminal, as this script sends commands to it.
+
+-------------------------------------------
+## **!!!!!!!! this fails to compile for me. I get this instead:**
+```
+          bruce@Mitosis-Dev-Ubuntu:~/nRF5_SDK_12/mitosis/mitosis-keyboard-basic$ ls -al
+          total 32
+          drwxrwxr-x 4 bruce bruce 4096 Aug 14 22:57 .
+          drwxrwxr-x 6 bruce bruce 4096 Aug 14 22:57 ..
+          drwxrwxr-x 2 bruce bruce 4096 Aug 14 22:57 config
+          drwxrwxr-x 3 bruce bruce 4096 Aug 14 22:57 custom
+          -rw-rw-r-- 1 bruce bruce 9321 Aug 14 22:57 main.c
+          -rwxrwxr-x 1 bruce bruce  530 Aug 14 22:57 program.sh
+          bruce@Mitosis-Dev-Ubuntu:~/nRF5_SDK_12/mitosis/mitosis-keyboard-basic$ ./program.sh 
+          =============================== MAKING ================================
+          rm -rf _build
+          echo  Makefile
+          Makefile
+          mkdir _build
+          Compiling file: system_nrf51.c
+          In file included from /home/bruce/nRF5_SDK_12/components/device/nrf.h:62:0,
+                           from /home/bruce/nRF5_SDK_12/components/toolchain/system_nrf51.c:36:
+          /home/bruce/nRF5_SDK_12/components/device/nrf51.h:119:130: fatal error: core_cm0.h: No such file or directory
+           #include "core_cm0.h"                               /*!< Cortex-M0 processor and core peripherals                              */
+                                                                                                                                            ^
+          compilation terminated.
+          Makefile:153: recipe for target '_build/system_nrf51.o' failed
+          make: *** [_build/system_nrf51.o] Error 1
+          bruce@Mitosis-Dev-Ubuntu:~/nRF5_SDK_12/mitosis/mitosis-keyboard-basic$ 
+```
 
 -------------------------------------------
 
