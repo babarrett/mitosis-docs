@@ -87,22 +87,24 @@ reversebias README at: https://github.com/reversebias/mitosis
 
 ### Nordic SDK:
 
-* either download **SDK v11** by going to:
-  [https://developer.nordicsemi.com/nRF5\_SDK/](https://developer.nordicsemi.com/nRF5\_SDK/) or
-* Download the **current** Nordic SDK by using a browser to go to 
+* Download **SDK v11** by going to:
+[https://developer.nordicsemi.com/nRF5\_SDK/](https://developer.nordicsemi.com/nRF5\_SDK/) (I 
+found that the reversebias code does not compile without changed with the v12 SDK.) 
+* **If** you want to try working with the **current** Nordic SDK use a browser to go to 
 [the Nordic page](https://www.nordicsemi.com/eng/nordic/Products/nRF5-SDK/nRF5-SDK-v12-zip/54291)
-selecting and downloading the latest SDK (12.3.0 for me). This ends up in your ~/Downloads folder.
+selecting and downloading the latest SDK (12.3.0 August 2017). This ends up in your ~/Downloads folder.
+You'll want to replace "11" with "12" in the following instructions if you want to go that route.
 * go to the terminal and execute:
 ```
           cd ~
-          unzip ~/Downloads/nRF5_SDK_12.3.0_d7731ad.zip  -d nRF5_SDK_12
-          cd nRF5_SDK_12
+          unzip ~/Downloads/nRF5_SDK_11.3.0_d7731ad.zip  -d nRF5_SDK_11  # TODO:  fix file name
+          cd nRF5_SDK_11
 ```
-If inside the nRF5_SDK_12 directory there is only one directory (nRF5\_SDK\_12.3.0\_d7731ad) copy its
-contents into nRF5_SDK_12, then remove it with:
+If inside the nRF5_SDK_11 directory there is only one directory (nRF5\_SDK\_11.0.0\_a1111aa) copy its
+contents into nRF5_SDK_11, then remove it with:
 ```
-          cp nRF5\_SDK\_12.3.0\_d7731ad/* .
-          rm -rf nRF5\_SDK\_12.3.0\_d7731ad
+          cp nRF5_SDK_11.0.0_a1111aa/* .
+          rm -rf nRF5_SDK_12.0.0_a1111aa
 ```
 
 ### Install the required tool chain utilities:
@@ -113,30 +115,30 @@ contents into nRF5_SDK_12, then remove it with:
           git --version # display git version
           sudo apt install openocd gcc-arm-none-eabi
 ```
-Update the Nordic makefile (for Linux) to point to TODO: ???
+Update the Nordic makefile (for Linux) to point to where the tools (gcc) live.
   * Edit the Makefile by going to the terminal and executing:
 ```
-          gedit ~/nRF5_SDK_12/components/toolchain/gcc/Makefile.posix
+          gedit ~/nRF5_SDK_11/components/toolchain/gcc/Makefile.posix
 ```
   * Replace something like: 
 ```
-          GNU\_INSTALL\_ROOT := /usr/local/gcc-arm-none-eabi-4\_9-2015q1
+          GNU_INSTALL_ROOT := /usr/local/gcc-arm-none-eabi-4_9-2015q1
 ```
 with:
 ```
-          GNU\_INSTALL\_ROOT := /usr/
+          GNU_INSTALL_ROOT := /usr/
 ```
-Download (clone) reversebias' Mitosis git repository:
-  * Clone reversebias' Mitosis git repository by going to the terminal and executing:
+Download (clone) the reversebias Mitosis git repository:
+  * Clone the reversebias Mitosis git repository by going to the terminal and executing:
 ```
-          cd ~/nRF5_SDK_12
+          cd ~/nRF5_SDK_11
           git clone https://github.com/reversebias/mitosis
 ```
-  * Install the udev rules (copy from get to the /etc directory):
+  * Install the udev rules (copy from the mitosis git clone to the /etc directory):
 ```
           sudo cp mitosis/49-stlinkv2.rules /etc/udev/rules.d/
 ```
-For this to compile, the directory ~/nRF5_SDK_12 needs to contain 
+For this to compile, the directory ~/nRF5\_SDK\_11 needs to contain 
 the sub-directory "mitosis" (the clone of the githib mitosis project):
 ```
           .
@@ -146,9 +148,8 @@ the sub-directory "mitosis" (the clone of the githib mitosis project):
           examples
           external
           license.txt
-          mitosis
-          nRF5_SDK_12.3.0_d7731ad
-          nRF5x_MDK_8_11_1_IAR.msi
+          mitosis              # mitosis at this level.
+          nRF5x_MDK_8_11_1_IAR.msi    # TODO: double check these file names
           nRF5x_MDK_8_11_1_Keil4.msi
           svd
 ```
@@ -302,9 +303,14 @@ Flashing wireless units complete. Exit everything.
 
 ## Development cycle for Wireless Module
 ### Recompile
-TODO: 
+TODO: test by...
 
     * Try to download the pre-build binary
+
+TODO: 
+    Recompile by cd mitosis/components/mitosis-keyboard
+    ./program.sh
+It will compile and start to download.
 
 
 ### Manual programming
@@ -328,35 +334,6 @@ To use the automatic build scripts:
           ./program.sh
 
 An **openocd** session should be running in another terminal, as this script sends commands to it.
-
--------------------------------------------
-## **!!!!!!!! this fails to compile for me. I get this instead:**
-```
-          bruce@Mitosis-Dev-Ubuntu:~/nRF5_SDK_12/mitosis/mitosis-keyboard-basic$ ls -al
-          total 32
-          drwxrwxr-x 4 bruce bruce 4096 Aug 14 22:57 .
-          drwxrwxr-x 6 bruce bruce 4096 Aug 14 22:57 ..
-          drwxrwxr-x 2 bruce bruce 4096 Aug 14 22:57 config
-          drwxrwxr-x 3 bruce bruce 4096 Aug 14 22:57 custom
-          -rw-rw-r-- 1 bruce bruce 9321 Aug 14 22:57 main.c
-          -rwxrwxr-x 1 bruce bruce  530 Aug 14 22:57 program.sh
-          bruce@Mitosis-Dev-Ubuntu:~/nRF5_SDK_12/mitosis/mitosis-keyboard-basic$ ./program.sh 
-          =============================== MAKING ================================
-          rm -rf _build
-          echo  Makefile
-          Makefile
-          mkdir _build
-          Compiling file: system_nrf51.c
-          In file included from /home/bruce/nRF5_SDK_12/components/device/nrf.h:62:0,
-                           from /home/bruce/nRF5_SDK_12/components/toolchain/system_nrf51.c:36:
-          /home/bruce/nRF5_SDK_12/components/device/nrf51.h:119:130: fatal error: core_cm0.h: No such file or directory
-           #include "core_cm0.h"                               /*!< Cortex-M0 processor and core peripherals                              */
-                                                                                                                                            ^
-          compilation terminated.
-          Makefile:153: recipe for target '_build/system_nrf51.o' failed
-          make: *** [_build/system_nrf51.o] Error 1
-          bruce@Mitosis-Dev-Ubuntu:~/nRF5_SDK_12/mitosis/mitosis-keyboard-basic$ 
-```
 
 -------------------------------------------
 
@@ -431,21 +408,21 @@ Start VM
 
 ## Updating the ST-LINK V2 firmware
 
-Your ST-LINK V2 firmware could be down-rev. I'm not aware of this causing any problems, but I upgraded mine anyway.
-I have two ST-LINK V2 devices. I left one old and upgraded the other. Both of mine were made in China, and 
-have the pins in this order:
+Your ST-LINK V2 firmware could be down-rev. I'm not aware of this causing any
+problems, but I upgraded mine anyway. I have two ST-LINK V2 devices. I left one
+with the old firmware, and upgraded the other. Both of mine were made in China,
+and have the pins in this order:
 ```
     +----+--+--+-----+
-    | RST| 1| 2|SWDIO|
-    | GND| 3| 4|GND  |
-    |SWIM| 5| 6|SWCLK|
-    |3.3V| 7| 8|3.3V |
-    |5.0V| 9|10|5.0V |
+    | RST|1 | 2|SWDIO|
+    | GND|3 | 4|GND  |
+    |SWIM|5 | 6|SWCLK|
+    |3.3V|7 | 8|3.3V |
+    |5.0V|9 |10|5.0V |
     +----+--+--+-----+
 ```
 
-
-My firmware is reported by OpenOCD as:
+My firmware started out being reported by OpenOCD as:
 ```
     Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
 ```
