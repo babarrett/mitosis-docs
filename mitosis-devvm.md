@@ -2,14 +2,26 @@
 
 ## Document Status
 
-This document is not yet complete, untested, and needs work. It may be useful or misleading, and I don't know which.
-It will be updated as I learn more.
+This document is not yet complete, untested, and needs some work. 
+I believe the parts from installing VirtualBox up to but not including
+flashing the wireless modules is fairly complete and working as written.
+
+I don't yet have a wireless module to test flashing, so that part is 
+unfinished and untested. It will be updated as I learn more.
+
+This document may be useful or misleading, I am hoping it is useful.
+
+TODO: Start over creating a new VM to test the doc.
+
+TODO: Check the doc organization.
 
 ## Definitions
   * Mitosis - A 2-piece wireless, programable (QMK), keyboard that communicates to a wireless "dongle" plugged into a USB port.
   * VM - Virtual machine
   * Host system (or simply host) - 
-  * ...
+  * wireless module - 
+  * ST-LINK V2 - 
+  * TODO: add more here...
 
 ## Install VirtualBox, make a new VM, install Ubuntu:
 
@@ -24,6 +36,8 @@ It will be updated as I learn more.
     * the installer runs...I selected "Install for all users...; the default installation
 
 ### Run and configure VirtualBox
+
+TODO: Check the order / values of these steps.
 
 * Run VirtualBox (In Applications folder on macOS, or other)
 * Click "New" near top-left of window.
@@ -43,6 +57,8 @@ It will be updated as I learn more.
 * OK
 
 ### Within VirtualBox, create a VM
+TODO: Check the order / values of these steps.
+
 * VM Name: MitosisDev
 * Disk name: mitosisdevhd
 * User: mitosis
@@ -52,11 +68,11 @@ It will be updated as I learn more.
 * 64-bit OS
 * ...
 
-* Install Ubuntu v16.x into the VM
+### Install Ubuntu v16.x into the VM
 
-Get a current Ubuntu installer ISO image
+## Get a current Ubuntu installer ISO image and install Ubuntu
 
-* current version is: 16.04.3 LTS
+* Current version is: 16.04.3 LTS
 * go to https://www.ubuntu.com/download/desktop and download the v16.x ISO file.
 * Mount the ISO as a CD-ROM for your new VM
 * Start up the VM, and boot from the Ubuntu ISO
@@ -66,56 +82,60 @@ Get a current Ubuntu installer ISO image
 * Install guest additions, see below for instructions.
 * Add Oracle VM VirtualBox Extension Pack, see below for instructions.
 
-## Add the ST-LINK V2 programer to the Ubuntu VM
+## Add the ST-LINK V2 programer to the Ubuntu VM as a USB device
 * Launch VirtualBox
 * Select your VM
 * Select Settings
-* Select Ports, and USB
+* Select Ports, and then USB
 * Click the "Add" button on the right
 * Select the ST-LINK USB device to add that hardware to the VM.
 * **EVERYTIME** you open the VM, check the USB icon at the bottom of the window
-to make sure the ST-LINK is attached. (Checked) Or, check it in the VirtualBox
-settings for that VM under: Settings / Ports / USB / USB Device Filters
-  
-  
+or the Mac menu at the top of the screen to make sure the ST-LINK is attached.
+(Checked) Or, check it in the VirtualBox settings for that VM under: Settings /
+Ports / USB / USB Device Filters
+    
 -------------------------------------------
 
-## Install OpenOCD programming software, Nordic SDK and tool chain. 
+## Install Nordic SDK, and tool chain
+
+The "tool chain" includes git, the gcc-arm compiler, and the OpenOCD programming
+software that uses the ST-LINK V2 to flash the wireless modules.
 
 Based off, but with added detail, 
-reversebias README at: https://github.com/reversebias/mitosis
+reversebias README.md at: [https://github.com/reversebias/mitosis](https://github.com/reversebias/mitosis)
 
 ### Nordic SDK:
 
 * Download **SDK v11** by going to:
-[https://developer.nordicsemi.com/nRF5\_SDK/](https://developer.nordicsemi.com/nRF5\_SDK/) (I 
-found that the reversebias code does not compile without changed with the v12 SDK.) 
-* **If** you want to try working with the **current** Nordic SDK use a browser to go to 
-[the Nordic page](https://www.nordicsemi.com/eng/nordic/Products/nRF5-SDK/nRF5-SDK-v12-zip/54291)
-selecting and downloading the latest SDK (12.3.0 August 2017). This ends up in your ~/Downloads folder.
-You'll want to replace "11" with "12" in the following instructions if you want to go that route.
-* go to the terminal and execute:
+[https://developer.nordicsemi.com/nRF5\_SDK/](https://developer.nordicsemi.com/
+nRF5\_SDK/) (I found that the reversebias code does not compile 
+with the current v12 SDK.) 
+* **If** you want to try working with the **current** Nordic SDK use a browser
+to go to [the Nordic
+page](https://www.nordicsemi.com/eng/nordic/Products/nRF5-SDK/nRF5-SDK-v12-zip/
+54291) selecting and downloading the latest SDK (12.3.0 August 2017). This ends
+up in your ~/Downloads folder. You'll want to replace "11" with "12" in the
+following instructions if you want to go that route. There will be other changes
+you need to do to get it to work which are beyond the scope of this document.
+Really, starting with v11 is simpler.
+* go to the terminal and unzip the Nordic SDK from the Downloads folder into its
+own directory by executing:
 ```
           cd ~
-          unzip ~/Downloads/nRF5_SDK_11.0.0_89a8197.zip  -d nRF5_SDK_11
+          unzip ~/Downloads/nRF5_SDK_11.0.0_89a8197.zip -d nRF5_SDK_11
           cd nRF5_SDK_11
 ```
-If inside the nRF5_SDK_11 directory there is only one directory (nRF5\_SDK\_11.0.0\_a1111aa) copy its
-contents into nRF5_SDK_11, then remove it with:
-```
-          cp nRF5_SDK_11.0.0_a1111aa/* .
-          rm -rf nRF5_SDK_12.0.0_a1111aa
-```
 
-### Install the required tool chain utilities:
-  * Install git, OpenOCD and the gcc-arm compiler by going to the terminal and executing:
+### Install the required tool chain utilities (git and OpenOCD):
+  * Install git, and the gcc-arm compiler by going to the terminal and executing:
 ```
-          sudo apt-get update # make packages upto date
+          sudo apt-get update # make packages up to date
           sudo apt install git
           git --version # display git version
           sudo apt install openocd gcc-arm-none-eabi
 ```
 Update the Nordic makefile (for Linux) to point to where the tools (gcc) live.
+This is where apt installed them.
   * Edit the Makefile by going to the terminal and executing:
 ```
           gedit ~/nRF5_SDK_11/components/toolchain/gcc/Makefile.posix
@@ -128,7 +148,13 @@ with:
 ```
           GNU_INSTALL_ROOT := /usr/
 ```
+
+-------------------------------------------
+
+## Install the the reversebias Mitosis git repository code
+
 Download (clone) the reversebias Mitosis git repository:
+
   * Clone the reversebias Mitosis git repository by going to the terminal and executing:
 ```
           cd ~/nRF5_SDK_11
@@ -139,7 +165,7 @@ Download (clone) the reversebias Mitosis git repository:
           sudo cp mitosis/49-stlinkv2.rules /etc/udev/rules.d/
 ```
 For this to compile, the directory ~/nRF5\_SDK\_11 needs to contain 
-the sub-directory "mitosis" (the clone of the githib mitosis project):
+the sub-directory "mitosis" (that we just cloned from the github mitosis project):
 ```
           .
           ..
@@ -155,9 +181,11 @@ the sub-directory "mitosis" (the clone of the githib mitosis project):
 ```
 
 
+-------------------------------------------
+
 ## Test the ST-LINK configuration and software
 
-* Plug in, or replug in the programmer. (should light up!)
+Plug in, or replug in the programmer. (should light up!)
 
   The programming header pins on the side of the keyboard, from top to bottom:
 ```
@@ -172,40 +200,42 @@ charging non-rechargeable lithium batteries isn't recommended.
 
 Launch a debugging session with:
 ```
-            cd ~/nRF5_SDK_12
-            openocd -f mitosis/nrf-stlinkv2.cfg
+			cd ~/nRF5_SDK_12
+			openocd -f mitosis/nrf-stlinkv2.cfg
 ```
 As openocd runs it should:
 
-a. cause the LED on the ST-LINK to illuminate
+1. Cause the LED on the ST-LINK to illuminate
 
-b. give you output starting with what I'll call the "Standard start-up header":
-```
-        Open On-Chip Debugger 0.9.0 (2015-09-02-10:42)
-        Licensed under GNU GPL v2
-        For bug reports, read
-                http://openocd.org/doc/doxygen/bugs.html
-        Info : The selected transport took over low-level target control. 
-               The results might differ compared to plain JTAG/SWD
-        adapter speed: 1000 kHz
-        Info : Unable to match requested speed 1000 kHz, using 950 kHz
-        Info : Unable to match requested speed 1000 kHz, using 950 kHz
-        Info : clock speed 950 kHz
-```
-c. If all is going well, the output will end with something like:
+2. Give you output starting with what I'll call the "Standard start-up header":
+	```
+			Open On-Chip Debugger 0.9.0 (2015-09-02-10:42)
+			Licensed under GNU GPL v2
+			For bug reports, read
+							http://openocd.org/doc/doxygen/bugs.html
+			Info : The selected transport took over low-level target control. 
+						 The results might differ compared to plain JTAG/SWD
+			adapter speed: 1000 kHz
+			Info : Unable to match requested speed 1000 kHz, using 950 kHz
+			Info : Unable to match requested speed 1000 kHz, using 950 kHz
+			Info : clock speed 950 kHz
+	```
+3. If all is going well, the output will end with something like:
 ```
             Info : nrf51.cpu: hardware has 4 breakpoints, 2 watchpoints
 ```
-If the TS-LINK **has not been reset** (unplugged, replugged in) lately the display will end with:
+If the ST-LINK **has not been reset** (unplugged, replugged in) lately the display will end with:
 ```
         <Standard start-up header>
         Error: open failed
         in procedure: 'init'
         in procedure: 'ocd_burner'
 ```
+just unplug it, and plug it back in, and try again.
+
 If the board is **not plugged in** (or, plugged in wrong) you will instead receive something like:
 ```
-        <s>
+        <Standard start-up header>
         Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
         Info : using stlink api v2
         Info : Target voltage: 3.261457
@@ -216,6 +246,8 @@ If the board is **not plugged in** (or, plugged in wrong) you will instead recei
 Otherwise you likely have a loose or wrong wire.
 
 ## Burn Wireless module -- Mac OS X 
+
+TODO: Test and re-write for Linux too
 
 ### In Terminal 1:
 
@@ -408,6 +440,8 @@ Start VM
 -------------------------------------------
 
 ## Updating the ST-LINK V2 firmware
+
+TODO: more here.
 
 Your ST-LINK V2 firmware could be down-rev. I'm not aware of this causing any
 problems, but I upgraded mine anyway. I have two ST-LINK V2 devices. I left one
