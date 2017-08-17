@@ -464,11 +464,9 @@ Follow the readme.txt instructions.
 * Open the AllPlatorms folder
 * Right click and open the STLinkUpgrade.jar Java app.
 * You'll get a dialog like this:
-```
-    +-----+
-    |photo|
-    +-----+
-```
+
+![Dialog box showing firmware update](images/ST-LINK_V2_update.png)
+
 Now the version numbers have now changed:
 ```
     Old:  Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
