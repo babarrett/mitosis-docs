@@ -97,7 +97,7 @@ You'll want to replace "11" with "12" in the following instructions if you want 
 * go to the terminal and execute:
 ```
           cd ~
-          unzip ~/Downloads/nRF5_SDK_11.3.0_d7731ad.zip  -d nRF5_SDK_11  # TODO:  fix file name
+          unzip ~/Downloads/nRF5_SDK_11.0.0_89a8197.zip  -d nRF5_SDK_11
           cd nRF5_SDK_11
 ```
 If inside the nRF5_SDK_11 directory there is only one directory (nRF5\_SDK\_11.0.0\_a1111aa) copy its
@@ -149,8 +149,8 @@ the sub-directory "mitosis" (the clone of the githib mitosis project):
           external
           license.txt
           mitosis              # mitosis at this level.
-          nRF5x_MDK_8_11_1_IAR.msi    # TODO: double check these file names
-          nRF5x_MDK_8_11_1_Keil4.msi
+          nRF5x_MDK_8_5_0_IAR.msi
+          nRF5x_MDK_8_5_0_Keil4.msi
           svd
 ```
 
@@ -308,9 +308,10 @@ TODO: test by...
     * Try to download the pre-build binary
 
 TODO: 
-    Recompile by cd mitosis/components/mitosis-keyboard
+Recompile by 
+    cd ~/nRF5_SDK_11/mitosis/mitosis-keyboard-basic
     ./program.sh
-It will compile and start to download.
+It will compile and start (trying) to download.
 
 
 ### Manual programming
