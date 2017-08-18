@@ -1,5 +1,12 @@
 # Creating a VM for Mitosis Development
 
+## The Goal
+
+The goal of this document is to allow keyboard enthusiasts to create a well
+defined Linux Virtual Machine that will allow for the smooth development of
+keyboard software for the Mitosis. This will allow you use a known-good
+Linux system on your computer.
+
 ## Document Status
 
 This document is not yet complete, untested, and needs some work. 
