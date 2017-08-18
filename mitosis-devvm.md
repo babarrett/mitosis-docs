@@ -373,6 +373,21 @@ An **openocd** session should be running in another terminal, as this script sen
 
 -------------------------------------------
 
+## Development cycle for QMK software
+
+1. Clone QMK repository
+2. Edit
+3. Compile
+4. Reset receiver (Pro Micro) to put in program mode
+5. Download with teensy, or similar. (Linux available?)
+6. Test new keyboard layout.
+
+
+
+
+
+-------------------------------------------
+
 ## Reducing VM disk space:
 
 After all is done, reduce the VM memory to make sharing easier:
