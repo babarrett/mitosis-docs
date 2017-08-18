@@ -220,11 +220,13 @@ As openocd runs it should:
 			Info : Unable to match requested speed 1000 kHz, using 950 kHz
 			Info : clock speed 950 kHz
 	```
+
 3. If all is going well, the output will end with something like:
+
 ```
             Info : nrf51.cpu: hardware has 4 breakpoints, 2 watchpoints
 ```
-If the ST-LINK **has not been reset** (unplugged, replugged in) lately the display will end with:
+If the ST-LINK **has not been reset lately** (unplugged, replugged in) the display will end with:
 ```
         <Standard start-up header>
         Error: open failed
@@ -245,9 +247,12 @@ If the board is **not plugged in** (or, plugged in wrong) you will instead recei
 ```
 Otherwise you likely have a loose or wrong wire.
 
-## Burn Wireless module -- Mac OS X 
 
-TODO: Test and re-write for Linux too
+## Burn Wireless module -- Linux or Mac OS X 
+
+TODO: Test for Linux too.
+
+TODO: Test after I have hardware that will alllow openocd to keep running.
 
 ### In Terminal 1:
 
@@ -293,62 +298,60 @@ brackets] with your system and board-specific information:
         no working area available, falling back to slow memory writes
         wrote 16652 bytes from file /Users/[username]/[path]/nRF5_SDK_12/mitosis/precompiled/precompiled-basic-[receiver, eft, right].hex in 3.201579s (5.079 KiB/s)
         > reset
-Flashing wireless units complete. exit everything.
-
-## Burn Wireless module -- Linux
-
-### In Terminal 1:
-
-Navigate to cloned mitosis repo and run.
-```
-          openocd -f mitosis/nrf-stlink.cfg 
-```
-Expect something similar to the following response.
-
-        TODO: 
-
-### In Terminal window 2:
-
-telnet localhost 4444
-
-        Trying 127.0.0.1...
-        Connected to localhost.
-        Escape character is ']'.
-        Open On-Chip Debugger
-
-In telnet session run the following commands. Replace the information in [square
-brackets] with your system and board-specific information:
-
-        > reset halt
-        target halted due to debug-request, current mode: Thread 
-        xPSR: 0xc1000000 pc: 0x00012b98 msp: 0x20001c48
-        > nrf51 mass_erase
-        > flash write_image /Users/[username]/[path]/nRF5_SDK_12/mitosis/precompiled/precompiled-basic-[receiver, left, right].hex
-        not enough working area available(requested 32)
-        no working area available, falling back to slow memory writes
-        wrote 16652 bytes from file /Users/[username]/[path]/nRF5_SDK_12/mitosis/precompiled/precompiled-basic-[receiver, eft, right].hex in 3.201579s (5.079 KiB/s)
-        > reset
-
 Flashing wireless units complete. Exit everything.
+
+1. Terminal #1: Control-C to halt and quit
+2. Terminal #2: "]" than "q" to quit
+
+TODO: test that when hardware is available.
 
 -------------------------------------------
 
 ## Development cycle for Wireless Module
 ### Recompile
-TODO: test by...
 
-    * Try to download the pre-build binary
-
-TODO: 
-Recompile by 
+First, check to see if the length defined in the keyboard file:
+~/nRF5_SDK_11/mitosis/mitosis-keyboard-basic/custom/armgcc/gzll_gcc_nrf51.ld has been fixed yet.
+The line:
+```
+    RAM (rwx) :  ORIGIN = 0x20000000, LENGTH = 0x8000
+```
+needs to be replaced with:
+```
+    RAM (rwx) :  ORIGIN = 0x20000000, LENGTH = 0x4000
+```
+(x4000 replaces 0x8000.)
+ 
+ If it still reads 0x8000 edit the file and change it.
+ 
     cd ~/nRF5_SDK_11/mitosis/mitosis-keyboard-basic
     ./program.sh
 It will compile and start (trying) to download.
 
+Recompile by 
+    cd ~/nRF5_SDK_11/mitosis/mitosis-receiver-basic
+    ./program.sh
+It will compile and start (trying) to download.
+
+### How to select keyboard Left or Right
+
+Edit the file: ~/nRF5_SDK_11/mitosis/mitosis-keyboard-basic/main.c
+
+The top 2 lines read:
+```
+        #define COMPILE_RIGHT
+        //#define COMPILE_LEFT
+```
+Uncomment one, comment out the other.
+
+Recompile and load.
 
 ### Manual programming
 
-From the factory, these chips need to be erased:
+TODO: needed?
+
+From the factory, these chips need to be erased. Makesure openocd is running in
+a different terminal window, then:
 
           echo reset halt | telnet localhost 4444
           echo nrf51 mass_erase | telnet localhost 4444
@@ -444,26 +447,24 @@ Start VM
 TODO: more here.
 
 Your ST-LINK V2 firmware could be down-rev. I'm not aware of this causing any
-problems, but I upgraded mine anyway. I have two ST-LINK V2 devices. I left one
-with the old firmware, and upgraded the other. Both of mine were made in China,
-and have the pins in this order:
+problems, but I upgraded mine anyway. I have seen JTAG v17 with SWIM v4 reported
+as working from another builder. This was my initial configuration too.
+I have two ST-LINK V2 devices. I left one
+with the old firmware, and upgraded the other to the latest version. 
+Both of my programmers were made in China, and have the pins in this order:
 ```
-    +----+--+--+-----+
-    | RST|1 | 2|SWDIO|
-    | GND|3 | 4|GND  |
-    |SWIM|5 | 6|SWCLK|
-    |3.3V|7 | 8|3.3V |
-    |5.0V|9 |10|5.0V |
-    +----+--+--+-----+
+        +----+--+--+-----+
+        | RST|1 | 2|SWDIO|
+        | GND|3 | 4|GND  |
+        |SWIM|5 | 6|SWCLK|
+        |3.3V|7 | 8|3.3V |
+        |5.0V|9 |10|5.0V |
+        +----+--+--+-----+
 ```
 
-My firmware started out being reported by OpenOCD as:
-```
-    Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
-```
 Go to this URL to read about the latest firmware upgrade:
 ```
-              http://www.st.com/en/embedded-software/stsw-link007.html
+        http://www.st.com/en/embedded-software/stsw-link007.html
 ```
 You will have to provide a valid email address so they can send you a confirmation message.
 Download the .zip file.
@@ -472,12 +473,20 @@ Unzip it.
 Follow the readme.txt instructions. 
 
 ### macOS
+TODO: Add more. Retest.
 
-* Open the AllPlatorms folder
-* Right click and open the STLinkUpgrade.jar Java app.
+* Open the AllPlatorms folder in the unziped folder.
+* Right click and open the STLinkUpgrade.jar, a Java app.
 * You'll get a dialog like this:
 
 ![Dialog box showing firmware update](images/ST-LINK_V2_update.png)
+
+If the programs cannot see your ST-LINK, unplug it, and plug it back in. As soon as it's
+plugged back in click "Open in update mode."
+
+Select your ST-LINK from the drop-down list. (There is probably only one.)
+
+Click "Upgrade"
 
 Now the version numbers have now changed:
 ```
