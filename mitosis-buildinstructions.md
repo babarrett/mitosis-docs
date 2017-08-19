@@ -30,7 +30,9 @@ test the keyboard halves, later.
 
 #### Test the Pro Micro
 * Plug the Pro Micro USB connector into a USB cable attached to the computer.
-* Program it using the standard QMK/mitosis hex file. (TODO: true? I use Teensy on my Mac)
+* Program it using the standard QMK/mitosis hex file found in the mitosis/precompiled directory of
+the reversebias github repository. https://github.com/reversebias/mitosis/tree/master/precompiled
+(TODO: I use the Teensy app on my Mac to do this.)
 
 There is a button to reset the Pro Micro and reprogram, a button for the
 wireless module to initiate pairing (not yet implemented July-2017), and an RGB
@@ -40,7 +42,7 @@ indicator).
 #### Attach the wireless module
 Attach the wireless module to the receiver PCB using the surface mount
 "fingers," just like you'll do on the keyboard halves. Test to make sure there
-is no continuity between adjacent pins on the wireless module. (Desolder and try
+is no continuity between adjacent pins on the wireless module. Desolder and try
 again if you find unwanted continuity (bridges).
 
 #### Attach the surface mount components
@@ -57,7 +59,9 @@ between to the "P" and the wireless module.
 * Solder the 1117 3.3v regulator (SOT223 form factor) onto the 4 pins near the
 wireless module. 
 * Solder the reset switch to the 4 pads next to the "R"
-* (optional) If you think there is a chance that you will want to reprogram the
+* (optional) Only some group-buys of Mitosis kits come with the wireless module
+preprogramed. If your wireless module did not come preprogramed or you think 
+there is a chance that you will want to later reprogram the
 nRF51822 wireless module on the receiver, for example to support encrypted
 communications or dynamic pairing at a later date, you can solder an additional
 4-pin, right angle header to the "under-side" of the receiver board. This is the
@@ -65,18 +69,19 @@ same side the Pro Micro will be attached to, and the side beneath the wireless
 module itself. Note that the hole with the square hole is "pin-1" of the
 connector. Also note that you'll always have easy access to this part of the
 board, so you can easily add it later. Lastly, you could leave this off and 
-connect it, when needed, by holding pins on the programmer to the plated holes.
+connect it, when needed, by holding pins on the programmer to the plated holes
+for the few seconds it takes to program it.
 
 
 **WARNING: Some identical looking ST-LINK V2 programers have their pins in different orders!**
 ```
-| Value | ST-LINK V2 | Receiver |
-+-------+------------+----------+
-| 3.3V  | Pin-8      | Pin-1    |
-| GND   | Pin-6      | Pin-4    |
-| SWDIO | Pin-4      | Pin-2    |
-| SWCLK | Pin-2      | Pin-3    |
-+-------+------------+----------+
+| Value | ST-LINK V2 | Receiver |        | Value | ST-LINK V2 | Receiver |
++-------+------------+----------+        +-------+------------+----------+
+| 3.3V  | Pin-8      | Pin-1    |        | 3.3V  | Pin-8      | Pin-1    |
+| GND   | Pin-6      | Pin-2    |        | SWCLK | Pin-6      | Pin-4    |
+| SWDIO | Pin-4      | Pin-3    |        | GND   | Pin-4      | Pin-2    |
+| SWCLK | Pin-2      | Pin-4    |        | SWDIO | Pin-2      | Pin-3    |
++-------+------------+----------+        +-------+------------+----------+
 ```
 * (optional) Solder a little speaker to pin 5 on the Pro Micro for music mode on the receiver.
 
@@ -88,8 +93,8 @@ soldering.
 side, RAW to A2 on the other.
 * solder in place
 
-#### Attaching the receiver PCB to the Pro Macro
-* Test-fit the receiver PCB to the Pro Macro
+#### Attaching the receiver PCB to the Pro Micro
+* Test-fit the receiver PCB to the Pro Micro
 * Cut the through pins flush before soldering to guarantee a smooth solder
 joint.
 * solder all 12 pins in place
