@@ -6,7 +6,8 @@ available information to make building and programming the Mitosis wireless
 keyboard as easy as possible, with the greatest chance for success for the
 greatest number of builders.
 
-TODO: 
+TODO:
+
 * Check name and clock speed on Pro Micro
 * Verify ATmega32U4 processor?
 * Validate expected battery life. It is stated that it could still last years in
