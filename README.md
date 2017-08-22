@@ -14,8 +14,9 @@ Please use at your own risk, and send me any corrections and clarifications you 
 
 At the moment I am collecting feedback on the first two, very important sections
 of it:
- * Build instructions: mitosis-buildinstructions.md
- * Parts list: mitosis-partslist.md
+
+* Build instructions: mitosis-buildinstructions.md
+* Parts list: mitosis-partslist.md
  
 Please send me comments, or pull requests for changes and improvements.
  
@@ -23,6 +24,7 @@ Thank you.
 
 ## Topics
 The topics to be covered are:
+
 * Overview
 	* Design goals
 	* Design documents
