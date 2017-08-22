@@ -133,8 +133,8 @@ own directory by executing:
           cd nRF5_SDK_11
 ```
 
-### Install the required tool chain utilities (git and OpenOCD):
-  * Install git, and the gcc-arm compiler by going to the terminal and executing:
+### Install the required tool chain utilities (git, OpenOCD, and gcc-arm):
+  * Install git, OpenOCD, and the gcc-arm compiler by going to the terminal and executing:
 ```
           sudo apt-get update # make packages up to date
           sudo apt install git
@@ -143,6 +143,7 @@ own directory by executing:
 ```
 Update the Nordic makefile (for Linux) to point to where the tools (gcc) live.
 This is where apt installed them.
+
   * Edit the Makefile by going to the terminal and executing:
 ```
           gedit ~/nRF5_SDK_11/components/toolchain/gcc/Makefile.posix
@@ -172,7 +173,8 @@ Download (clone) the reversebias Mitosis git repository:
           sudo cp mitosis/49-stlinkv2.rules /etc/udev/rules.d/
 ```
 For this to compile, the directory ~/nRF5\_SDK\_11 needs to contain 
-the sub-directory "mitosis" (that we just cloned from the github mitosis project):
+the sub-directory "mitosis" (that we just cloned from the github mitosis
+project). So your directory should now look like this:
 ```
           .
           ..
@@ -192,7 +194,7 @@ the sub-directory "mitosis" (that we just cloned from the github mitosis project
 
 ## Test the ST-LINK configuration and software
 
-Plug in, or replug in the programmer. (should light up!)
+Plug in, or replug in the programmer. (Should light up!)
 
   The programming header pins on the side of the keyboard, from top to bottom:
 ```
@@ -228,34 +230,15 @@ As openocd runs it should:
 			Info : clock speed 950 kHz
 	```
 
-3. If all is going well, the output will end with something like:
+3. If all is going well, the output will end with something like this and
+OpenOCD will continue to run:
 
 ```
             Info : nrf51.cpu: hardware has 4 breakpoints, 2 watchpoints
 ```
-If the ST-LINK **has not been reset lately** (unplugged, replugged in) the display will end with:
-```
-        <Standard start-up header>
-        Error: open failed
-        in procedure: 'init'
-        in procedure: 'ocd_burner'
-```
-just unplug it, and plug it back in, and try again.
+If that is not what you get see the "ST-LINK Troubleshooting" section, below.
 
-If the board is **not plugged in** (or, plugged in wrong) you will instead receive something like:
-```
-        <Standard start-up header>
-        Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
-        Info : using stlink api v2
-        Info : Target voltage: 3.261457
-        Error: init mode failed (unable to connect to the target)
-        in procedure 'init' 
-        in procedure 'ocd_bouncer'
-```
-Otherwise you likely have a loose or wrong wire.
-
-
-## Burn Wireless module -- Linux or Mac OS X 
+## Load the firmware into the Wireless module(s) -- Linux or Mac OS X 
 
 TODO: Test for Linux too.
 
@@ -263,7 +246,7 @@ TODO: Test after I have hardware that will alllow openocd to keep running.
 
 ### In Terminal 1:
 
-Navigate to cloned mitosis repo and run.
+Navigate to cloned mitosis repo and run openocd.
 ```
           cd ~/nRF5_SDK_12
           openocd -f mitosis/nrf-stlink.cfg 
@@ -287,14 +270,16 @@ Expect something similar to the following response.
 
 ### In Terminal window 2:
 
-telnet localhost 4444
+```
+        telnet localhost 4444
         Trying 127.0.0.1...
         Connected to localhost.
         Escape character is ']'.
         Open On-Chip Debugger
+```
 
-In telnet session run the following commands. Replace the information in [square
-brackets] with your system and board-specific information:
+In telnet session (terminal window 2) run the following commands. Replace the
+information in [square brackets] with your system and board-specific information:
 
         > reset halt
         target halted due to debug-request, current mode: Thread 
@@ -307,38 +292,33 @@ brackets] with your system and board-specific information:
         > reset
 Flashing wireless units complete. Exit everything.
 
-1. Terminal #1: Control-C to halt and quit
-2. Terminal #2: "]" than "q" to quit
+1. Terminal #2: "]" then "q" to quit
+2. Terminal #1: Control-C to halt and quit
 
-TODO: test that when hardware is available.
+TODO: test the above, when hardware is available.
 
 -------------------------------------------
 
 ## Development cycle for Wireless Module
-### Recompile
+### Fix the length, if needed.
 
 First, check to see if the length defined in the keyboard file:
-~/nRF5_SDK_11/mitosis/mitosis-keyboard-basic/custom/armgcc/gzll_gcc_nrf51.ld has been fixed yet.
+```
+		~/nRF5_SDK_11/mitosis/mitosis-keyboard-basic/custom/armgcc/gzll_gcc_nrf51.ld 
+```
+has been fixed.
+
 The line:
 ```
-    RAM (rwx) :  ORIGIN = 0x20000000, LENGTH = 0x8000
+    	RAM (rwx) :  ORIGIN = 0x20000000, LENGTH = 0x8000
 ```
 needs to be replaced with:
 ```
-    RAM (rwx) :  ORIGIN = 0x20000000, LENGTH = 0x4000
+    	RAM (rwx) :  ORIGIN = 0x20000000, LENGTH = 0x4000
 ```
-(x4000 replaces 0x8000.)
+(0x4000 replaces 0x8000.)
  
- If it still reads 0x8000 edit the file and change it.
- 
-    cd ~/nRF5_SDK_11/mitosis/mitosis-keyboard-basic
-    ./program.sh
-It will compile and start (trying) to download.
-
-Recompile by 
-    cd ~/nRF5_SDK_11/mitosis/mitosis-receiver-basic
-    ./program.sh
-It will compile and start (trying) to download.
+If it still reads 0x8000 edit the file and change it You only have to do this once.
 
 ### How to select keyboard Left or Right
 
@@ -351,9 +331,15 @@ The top 2 lines read:
 ```
 Uncomment one, comment out the other.
 
-Recompile and load.
+### Recompile and load.
+ 
+      cd ~/nRF5_SDK_11/mitosis/mitosis-keyboard-basic
+      ./program.sh
+It will compile and start (trying) to download.
 
-### Manual programming
+
+-------------------------------------------
+## Manual programming
 
 TODO: needed?
 
@@ -381,6 +367,8 @@ An **openocd** session should be running in another terminal, as this script sen
 -------------------------------------------
 
 ## Development cycle for QMK software
+
+TODO: Clean-up and test.
 
 1. Clone QMK repository
 2. Edit
@@ -418,8 +406,9 @@ After all is done, reduce the VM memory to make sharing easier:
     * See the 10 largest files on the system with: find / -printf '%s %p\n'| sort -nr | head -10
     * localepurge for removing non-english
     * auto rotate, compress and delete your logs.
-      
-    
+
+Can we then Zip the volume? TODO: How much might that save?
+
 -------------------------------------------
 
 ## Guest additions
@@ -461,6 +450,35 @@ Oracle VM VirtualBox Extension Pack instructions available here: https://www.you
   * Install Oracle VM VirtualBox Extension pack for Remote Display to work. 
 
 Start VM
+
+-------------------------------------------
+
+## ST-LINK Troubleshooting
+
+If you try to start up OpenOCD, and it does not respond as expected here is 
+some troubleshooting information.
+
+If the ST-LINK **has not been reset lately** (unplugged, replugged in) the
+display will end with:
+```
+        <Standard start-up header>
+        Error: open failed
+        in procedure: 'init'
+        in procedure: 'ocd_burner'
+```
+Just unplug it, and plug it back in, and try again.
+
+If the board is **not plugged in** (or, plugged in wrong) you will instead receive something like:
+```
+        <Standard start-up header>
+        Info : STLINK v2 JTAG v17 API v2 SWIM v4 VID 0x0483 PID 0x3748
+        Info : using stlink api v2
+        Info : Target voltage: 3.261457
+        Error: init mode failed (unable to connect to the target)
+        in procedure 'init' 
+        in procedure 'ocd_bouncer'
+```
+Otherwise you likely have a loose or wrong wire.
 
 -------------------------------------------
 
