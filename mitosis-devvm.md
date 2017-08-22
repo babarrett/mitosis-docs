@@ -4,8 +4,8 @@
 
 The goal of this document is to allow keyboard enthusiasts to create a well
 defined Linux Virtual Machine that will allow for the smooth development of
-keyboard software for the Mitosis. This will allow you use a known-good
-Linux system on your computer.
+keyboard software for the Mitosis. This will allow you use a well-defined, 
+proven working Linux system, on your computer.
 
 ## Document Status
 
@@ -14,20 +14,21 @@ I believe the parts from installing VirtualBox up to but not including
 flashing the wireless modules is fairly complete and working as written.
 
 I don't yet have a wireless module to test flashing, so that part is 
-unfinished and untested. It will be updated as I learn more.
+unfinished and untested. It will be updated as I try it out and learn more.
 
 This document may be useful or misleading, I am hoping it is useful.
 
-TODO: Start over creating a new VM to test the doc.
+TODO: Start over creating a new VM from scratch, to test the doc.
 
 TODO: Check the doc organization.
 
 ## Definitions
-  * Mitosis - A 2-piece wireless, programable (QMK), keyboard that communicates to a wireless "dongle" plugged into a USB port.
+  * Mitosis - A 2-piece wireless, programable (QMK), keyboard that communicates
+to a wireless "dongle" plugged into a USB port.
   * VM - Virtual machine
   * Host system (or simply host) - 
-  * wireless module - 
-  * ST-LINK V2 - 
+  * Wireless module - 
+  * ST-LINK V2 - an in-circuit debugger/programmer
   * TODO: add more here...
 
 ## Install VirtualBox, make a new VM, install Ubuntu:
@@ -37,10 +38,12 @@ TODO: Check the doc organization.
 * Download the app for your host system here: https://www.virtualbox.org/wiki/Downloads
 * Version 5.1.26
 * (I'm using the macOS version, any there should work the same. Use the one that will run on your computer.)
-    * download
-    * open (double-click) the .dmg file
-    * install (double-click) the VirtualBox.pkg file, verifies the package. It will take a little while to start up.
-    * the installer runs...I selected "Install for all users...; the default installation
+* download
+* open (double-click) the .dmg (macOS) or other file
+* install (double-click) the VirtualBox.pkg file, verifies the package. It will
+take a little while to start up.
+* the installer runs...I selected "Install for all users...; the default
+installation
 
 ### Run and configure VirtualBox
 
@@ -53,14 +56,19 @@ TODO: Check the order / values of these steps.
 * Select "Version: Ubuntu (64-bit)", Continue
 * Select RAM to allocate for the running VM. I'll start with 1542 MB, Continue
 * Select "Create a virtual hard disk now", Create
-* Selet "VHD" ("VDI" cannot be imported into other VMs later, if you wanted to.), Continue
-* Select "Dynamically allocated" (Only uses the disk space it needs.) Continue
+* Selet "VHD" ("VDI" cannot be imported into other VMs later, if you wanted to.), Continue.
+* Select "Dynamically allocated" (Only uses the disk space it needs.) Continue.
 * Set value for the HD to 30GB, and the default name & location. Create.
 * Network / Adapter 1: Enable, Attached to NAT
 * Ports / Serial Ports: Disabled
 * Ports / USB: Enable; USB 1.1
-* Plug in your ST-LINK V2 programmer. Click the USB and "+" icon. Select the ST-LINK device to attach the programmer to the VM (when running).
-* Enasble all tabs for the UI
+* Plug in your ST-LINK V2. Click the USB and "+" icon. Select the ST-LINK device to attach it to the VM (when running).
+* In preferences, enable all tabs for the UI
+```
+     +-----+
+     |photo|
+     +-----+
+```
 * OK
 
 ### Within VirtualBox, create a VM
@@ -108,20 +116,19 @@ Ports / USB / USB Device Filters
 The "tool chain" includes git, the gcc-arm compiler, and the OpenOCD programming
 software that uses the ST-LINK V2 to flash the wireless modules.
 
-Based off, but with added detail, 
-reversebias README.md at: [https://github.com/reversebias/mitosis](https://github.com/reversebias/mitosis)
+Based off, but with added detail, reversebias README.md at: [https://github.com/reversebias/mitosis](https://github.com/reversebias/mitosis)
 
 ### Nordic SDK:
 
 * Download **SDK v11** by going to:
 [https://developer.nordicsemi.com/nRF5\_SDK/](https://developer.nordicsemi.com/
-nRF5\_SDK/) (I found that the reversebias code does not compile 
-with the current v12 SDK.) 
+nRF5\_SDK/) (I found that the reversebias code does not compile with the current
+v12 SDK. Looks like one of the .h files is in a different directory)
 * **If** you want to try working with the **current** Nordic SDK use a browser
 to go to [the Nordic
 page](https://www.nordicsemi.com/eng/nordic/Products/nRF5-SDK/nRF5-SDK-v12-zip/
 54291) selecting and downloading the latest SDK (12.3.0 August 2017). This ends
-up in your ~/Downloads folder. You'll want to replace "11" with "12" in the
+up in your ~/Downloads folder. You'll need to replace "11" with "12" in the
 following instructions if you want to go that route. There will be other changes
 you need to do to get it to work which are beyond the scope of this document.
 Really, starting with v11 is simpler.
@@ -134,7 +141,7 @@ own directory by executing:
 ```
 
 ### Install the required tool chain utilities (git and OpenOCD):
-  * Install git, and the gcc-arm compiler by going to the terminal and executing:
+* Install git, and the gcc-arm compiler by going to the terminal and executing:
 ```
           sudo apt-get update # make packages up to date
           sudo apt install git
@@ -143,11 +150,12 @@ own directory by executing:
 ```
 Update the Nordic makefile (for Linux) to point to where the tools (gcc) live.
 This is where apt installed them.
-  * Edit the Makefile by going to the terminal and executing:
+
+* Edit the Makefile by going to the terminal and executing:
 ```
           gedit ~/nRF5_SDK_11/components/toolchain/gcc/Makefile.posix
 ```
-  * Replace something like: 
+* Replace something like: 
 ```
           GNU_INSTALL_ROOT := /usr/local/gcc-arm-none-eabi-4_9-2015q1
 ```
@@ -172,19 +180,19 @@ Download (clone) the reversebias Mitosis git repository:
           sudo cp mitosis/49-stlinkv2.rules /etc/udev/rules.d/
 ```
 For this to compile, the directory ~/nRF5\_SDK\_11 needs to contain 
-the sub-directory "mitosis" (that we just cloned from the github mitosis project):
+the sub-directory "mitosis" (that we just cloned from the github mitosis project). Sp the directory looks like this:
 ```
           .
           ..
-          components
-          documentation
-          examples
-          external
+          components/
+          documentation/
+          examples/
+          external/
           license.txt
-          mitosis              # mitosis at this level.
+          mitosis/              # mitosis at this level.
           nRF5x_MDK_8_5_0_IAR.msi
           nRF5x_MDK_8_5_0_Keil4.msi
-          svd
+          svd/
 ```
 
 
@@ -192,9 +200,9 @@ the sub-directory "mitosis" (that we just cloned from the github mitosis project
 
 ## Test the ST-LINK configuration and software
 
-Plug in, or replug in the programmer. (should light up!)
+Plug in, or remove and replug in the programmer. (Its LED should light up!)
 
-  The programming header pins on the side of the keyboard, from top to bottom:
+The programming header pins on the side of the keyboard, from top to bottom are:
 ```
             SWCLK
             SWDIO
@@ -207,7 +215,7 @@ charging non-rechargeable lithium batteries isn't recommended.
 
 Launch a debugging session with:
 ```
-			cd ~/nRF5_SDK_12
+			cd ~/nRF5_SDK_11
 			openocd -f mitosis/nrf-stlinkv2.cfg
 ```
 As openocd runs it should:
@@ -252,7 +260,7 @@ If the board is **not plugged in** (or, plugged in wrong) you will instead recei
         in procedure 'init' 
         in procedure 'ocd_bouncer'
 ```
-Otherwise you likely have a loose or wrong wire.
+Otherwise you likely have a loose or wrong wire. Doublecheck everything.
 
 
 ## Burn Wireless module -- Linux or Mac OS X 
@@ -265,7 +273,7 @@ TODO: Test after I have hardware that will alllow openocd to keep running.
 
 Navigate to cloned mitosis repo and run.
 ```
-          cd ~/nRF5_SDK_12
+          cd ~/nRF5_SDK_11
           openocd -f mitosis/nrf-stlink.cfg 
 ```
 Expect something similar to the following response.
@@ -300,10 +308,10 @@ brackets] with your system and board-specific information:
         target halted due to debug-request, current mode: Thread 
         xPSR: 0xc1000000 pc: 0x00012b98 msp: 0x20001c48
         > nrf51 mass_erase
-        > flash write_image /Users/[username]/[path]/nRF5_SDK_12/mitosis/precompiled/precompiled-basic-[receiver, left, right].hex
+        > flash write_image /Users/[username]/[path]/nRF5_SDK_11/mitosis/precompiled/precompiled-basic-[receiver, left, right].hex
         not enough working area available(requested 32)
         no working area available, falling back to slow memory writes
-        wrote 16652 bytes from file /Users/[username]/[path]/nRF5_SDK_12/mitosis/precompiled/precompiled-basic-[receiver, eft, right].hex in 3.201579s (5.079 KiB/s)
+        wrote 16652 bytes from file /Users/[username]/[path]/nRF5_SDK_11/mitosis/precompiled/precompiled-basic-[receiver, eft, right].hex in 3.201579s (5.079 KiB/s)
         > reset
 Flashing wireless units complete. Exit everything.
 
