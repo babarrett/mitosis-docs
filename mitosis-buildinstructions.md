@@ -18,7 +18,7 @@ Later we'll finish off the cuts on the inner part of the neoprene.
 
 ### Prepare the Receiver
 
-The receiver is an interface PCB, a Pro Micro, and another identical wireless
+The receiver is an interface PCB, a Pro Micro, and a wireless
 module. As all the wireless functionality is handled by the module firmware, it
 is completely compatible with QMK using only a custom matrix.c file. 
 
@@ -47,6 +47,7 @@ again if you find unwanted continuity (bridges).
 
 #### Attach the surface mount components
 Solder on the small surface mount components to the receiver PCB:
+
 * Solder the two (2) 1206 4.7k resistor arrays side-by-side onto the 16 pads,
 close to the USB connector edge of the board, furthest from the wireless module.
 There is no wrong orientation, no "Pin 1."
@@ -86,7 +87,9 @@ for the few seconds it takes to program it.
 * (optional) Solder a little speaker to pin 5 on the Pro Micro for music mode on the receiver.
 
 #### Attach the headers to the Pro Micro
+
 You want to solder two 6 pin straight headers into the Pro Micro, at the USB connector end.
+
 * Put the pin headers in a breadboard (long ends down, short ends up) to hold them straight and aligned for
 soldering.
 * Place the Pro Micro component-side down over the headers. TX0 to 3 on one
@@ -109,12 +112,13 @@ QMK.
 Verify that it registers as a USB device.
 * Use USB to program the Pro Micro, again. This confirms that you did not break
 the Pro Micro while soldering things to it.
-* Use ST-LINK V2 to program the receiver wireless module
+* Use ST-LINK V2 to program the receiver wireless module. (Optional if yours is already programmed.)
 
 
 ### Prepare the plates
 
 **Safety warnings**
+
 * Be sure you are wearing googles, especially for breaking out the squares to make the plate.
 * Filter mask if you are using a Dremel(TM), or similar rotary grinder to assist in removing
 the squares in the "plate" PCBs.
@@ -125,7 +129,7 @@ It is suggested you build one side of the keyboard to completion before starting
 second side. This way, if you make a mistake you will only have to repare or
 replace one side.
 
-Remove the 23 square switch positions from 2 of the PCBs. The remaining frame becomes the
+Remove the 23 square switch positions from 1 of the PCBs. The that PCB becomes the
 plate. Because of the thin material, especially on the sides, used a desk vice
 for these. They are fragile and subject to breakage.
 
@@ -136,13 +140,14 @@ equipment (googles and mask) is considered essential if you do this.
 
 The tabs are drilled out to form 'mouse bites'. Insert a pencil or end of an
 exacto(TM) knife into the center hole of the square and rock the breakout back
-and forth about 20 times, all the glass fibers will break, and they just fall
-out.
+and forth about 20 times, all the glass fibers will break, and the square of PCB
+material will just fall out.
 
 If you do it too fast, the soldermask may flake off as well. Don't worry too much
-about wrecking these breakouts, you're just going to throw them away anyway.
+about wrecking these breakouts, you're just going to throw them away anyway. You
+**do** want to be careful not to brake the remaining "plate."
 
-There us a little material left, but this is hidden between the case tabs on an
+There is a little material left, but this is hidden between the case tabs on an
 MX switch, so it doesn't need to be completely flush. Use flush cutters to 
 knock off any sharp bits though.
 
@@ -160,7 +165,7 @@ Set the plate aside. Now we start on adding the electronics to the PCB.
 **IMPORTANT: Solder the wireless module to the PCB before the 4-pin headers used
 to flash the wireless nodule.**
 
-There are 3, or optionally 4 components to be soldered on to each keyboard half
+There are 3, or optionally 5 components to be soldered on to each keyboard half
 PCB that the switches will end up being soldered to. They are as follows:
 ```
 | Part                                | Location |
@@ -169,15 +174,16 @@ PCB that the switches will end up being soldered to. They are as follows:
 | reverse polarity protection MOS FET |  Top     |
 | 4-pin Right angle 0.1" header       |  Top     |
 | (optional) single, LED SMD.         |  Top     |
+| (optional) Resistor SMD for LED.    |  Top     |
+|    unknown value, 3.3k may work     |  Top     |
 +-------------------------------------+----------+
 ```
-TODO: Confirm: No SMD resistor for the LED.
 
 #### Bottom of the PCB - Attach the Wireless Module
 
 Turn the PCB over, bottom-side up.
 
-For the novice, or extra cautious verify that there is connectivity from one
+For the novice, or extra cautious, verify that there is connectivity from one
 side of every switch location to a corresponding pin that the wireless module
 will be soldered to. Use a multimeter in continuity mode. Use the following
 photo to test each switch position:
@@ -221,7 +227,7 @@ Trim the 4 horizontal pins flush with the edge of the PCB board.
 
 #### Top of the PCB - Attach the reverse polarity protection 
 
-Solder a reverse polarity protection FET (SI2302) and a programming header onto
+Solder a reverse polarity protection FET (SI2302) onto the
 top side of the board.
 
 As there are 23 switches and 31 GPIOs on the wireless module, there is no need
@@ -232,9 +238,9 @@ pull-up connection for each switch.
 
 (Optional) There is room next to the header for an LED and a resistor. This was
 designed into the PCB for initial development and is not being used in the
-"production" software. The pad closest to pin-4 is the anode pin of the LED, the
-pad closest to pin-3 is the cathode pin. A resistor goes between the two
-remaining pads. A value of about 3.3k should work fine.
+"production" software. The pad closest to pin-4 of the programming header is the
+anode pin of the LED, the pad closest to pin-3 is the cathode pin. A resistor
+goes between the two remaining pads. A value of about 3.3k should work fine.
 
 #### Test your work so far.
 
@@ -242,11 +248,8 @@ remaining pads. A value of about 3.3k should work fine.
 2. Attach the ST-LINK programming module to the 4 pins as described TODO: where?
 3. Program the wireless module using the instructions TODO: where?
 
--=-
 
 ### Repeat on the other keyboard half (PCB)
-
-Cut the programming headers flush to the edge of the board. 
 
 Test the second board the same way as the first.
 
@@ -273,13 +276,12 @@ Once the boards were properly pressed together, solder the switches in. Start
 with the corner switches, for alignment.
 
 #### Solder the header pins on either side of the battery:
-* first, cut the top of the header pine flush with the top (plate) board.
+* first, cut the top of the header pins flush with the top (plate) board.
 * next, solder the top of the battery stabilizers to the plate.
 * then turn the keyboard over. Insert a battery between the PCBs and squeeze the
-PCBs as you solder the bottom of each stabiliser. the spring of the fiberglass
+PCBs as you solder the bottom of each stabilizer. The spring of the fiberglass
 will hold the battery snugly.
 
-**Pause the work on the keyboard halves. We'll come back to the neoprene
-base later.**
+### Finnish off the neoprene bottoms
 
-* Use ST-LINK V2 to program the keyboard halves wireless modules
+TODO: add instructions
