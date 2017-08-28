@@ -299,10 +299,27 @@ information in [square brackets] with your system and board-specific information
         > reset
 Flashing wireless units complete. Exit everything.
 
-1. Terminal #2: "]" then "q" to quit
+1. Terminal #2: Ctrl+reset"]" then "q" to quit
 2. Terminal #1: Control-C to halt and quit
 
 TODO: test the above, when hardware is available.
+
+-------------------------------------------
+When I tried with PhenixFire's wireless in VM
+
+        > reset halt
+        target state: halted
+        target halted due to debug-request, current mode: Thread 
+        xPSR: 0xc1000000 pc: 0x000010f4 msp: 0x20004000
+        > nrf51 mass_erase
+        Unknown device (HWID 0x0000008f)
+        
+        > flash write_image /home/mitosis/nRF5_SDK_11/mitosis/precompiled/precompiled-basic-receiver.hex
+        not enough working area available(requested 32)
+        no working area available, falling back to slow memory writes
+        (programmer light flashes)
+        wrote 16652 bytes from file /home/mitosis/nRF5_SDK_11/mitosis/precompiled/precompiled-basic-receiver.hex in 119.679726s (0.136 Kib/s)s (5.079 KiB/s)
+        > reset
 
 -------------------------------------------
 
