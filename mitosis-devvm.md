@@ -392,13 +392,17 @@ An **openocd** session should be running in another terminal, as this script sen
 
 ## Development cycle for QMK software
 
-TODO: Clean-up and test.
+TODO: Clean-up and test. Orig. post in 2014. Make sure it is up to date. 
 
+See: [Deskthority](https://deskthority.net/workshop-f7/how-to-use-a-pro-micro-as-a-cheap-controller-converter-like-soarer-s-t8448.html) for more info.
+
+1. Install AVRdude for Linux
 1. Clone QMK repository
 2. Edit
 3. Compile
 4. Reset receiver (Pro Micro) to put in program mode
-5. Download with teensy, or similar. (Linux available?)
+  * This takes hitting the reset button twice as it powers up. 
+5. Download with avrdude pointing to your USB port
 6. Test new keyboard layout.
 
 
