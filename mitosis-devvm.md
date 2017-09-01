@@ -563,3 +563,4 @@ Now the version numbers have now changed:
                            ^^^^^^^^        ^^^^^^^
 ```
 
+A good guide to flashing the Pro Micro can be found here : https://goo.gl/pquFWu it's for the let's split but the MiniDox is setup in the same way, so you can follow the instructions just fine. Just be sure to compile the MiniDox firmware rather than the let's split

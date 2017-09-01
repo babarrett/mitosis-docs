@@ -1,0 +1,11 @@
+Still to do:
+    Solder the keyboard halves, program them
+    Install QMK for Mitosis
+    Write QMK instructions (or point to others)
+    Test download of QMK to Pro Micro (Native OS X and Linux)
+    Test the QMK compile and load
+    Document the QMK part
+
+    Start a new, empty VM. Follow my instructions to build it. Make sure it still works.
+        Adjust instructions as needed.
+    Publish instructions.
