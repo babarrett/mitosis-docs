@@ -474,6 +474,7 @@ kick off the DFU process).
 * ST.com has additional [developer
 support](http://www.st.com/en/development-tools/st-link-v2.html) resources
 available.
+* [Switch Hitter](https://elitekeyboards.com/switchhitter.php) Keyboard Diagnostic Software (Windows)
 
 ### Wireless
 #### OpenOCD - Open On Chip Debugger
